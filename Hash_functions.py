@@ -241,6 +241,14 @@ urls = [
     "http://anotherexample.com",
 ]
 
+emails = [
+    "example1@example.com",
+    "user2@test.org",
+    "contact@mydomain.net",
+    "admin@website.com",
+    "info@anotherexample.com",
+]
+
 ip_addresses = [
     "192.168.0.1",
     "10.0.0.2",
