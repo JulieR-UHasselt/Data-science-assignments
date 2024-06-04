@@ -164,3 +164,5 @@ def print_collisions(collision_tracker):
     for index, elements in collision_tracker.items():
         if len(elements) > 1:
             print(f"Index {index} is set by multiple elements: {elements}")
+
+# Snippet 7: Function to Process a Dataset
