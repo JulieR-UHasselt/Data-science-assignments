@@ -277,3 +277,10 @@ dna_sequences = [
     "GCTAGCTAGC",
     "TAGCTAGCTA",
 ]
+
+# Process each dataset
+process_dataset(urls, "URLs")
+process_dataset(ip_addresses, "IP Addresses")
+process_dataset(english_words, "English Words")
+process_dataset(dna_sequences, "DNA Sequences")
+process_dataset(emails, "Email Addresses")
