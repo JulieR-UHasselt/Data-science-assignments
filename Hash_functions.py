@@ -240,3 +240,11 @@ urls = [
     "https://mywebsite.net",
     "http://anotherexample.com",
 ]
+
+ip_addresses = [
+    "192.168.0.1",
+    "10.0.0.2",
+    "172.16.0.3",
+    "8.8.8.8",
+    "127.0.0.1",
+]
