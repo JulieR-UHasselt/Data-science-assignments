@@ -34,7 +34,15 @@ def calculate_parameters(n, P):
 
 
 def create_hash_functions(k):
+    """
+    Create k hash functions each with random seeds.
 
+    Parameters:
+    k (int): Number of hash functions to create.
+
+    Returns:
+    tuple: List of hash functions and their corresponding seeds.
+    """
     # Generate k random seeds
     random_seeds = []
     for i in range(k):
