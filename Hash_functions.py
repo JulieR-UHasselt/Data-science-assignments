@@ -4,6 +4,21 @@ import random
 
 # Snippet 2: Function to Calculate Optimal Parameters
 
+"""
+    Calculate the size of the bit array (m) and the number of hash functions (k).
+
+    Parameters:
+    n (int): Number of elements in the dataset.
+    P (float): Desired probability of false positives.
+
+    Returns:
+    tuple: Size of the bit array (m) and number of hash functions (k).
+
+    Formulas:
+    m = - (n * log(P)) / (log(2)^2)
+    k = (m / n) * log(2)
+    """
+
 
 def calculate_parameters(n, P):
 
