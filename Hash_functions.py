@@ -105,3 +105,39 @@ def insert_into_bit_array(element, bit_array, hash_functions, collision_tracker)
 
         # Set the bit at the calculated index to 1
         bit_array[index] = 1
+
+# Snippet 5: Function to Print the Bit Array Status / this is only for visualization (can be removed later)
+
+
+def print_bit_array_status(bit_array, element, hash_functions, dataset_name):
+
+    # Step 1: Calculate the indices set by the hash functions
+    indices = []
+    for hash_fn in hash_functions:
+        # Calculate the index for the current hash function
+        index = hash_fn(element) % len(bit_array)
+        # Add the index to the list of indices
+        indices.append(index)
+
+    # Step 2: Create a string representation of the bit array
+    bit_array_str = ''
+    for bit in bit_array:
+        if bit == 1:
+            bit_array_str += '1'
+        else:
+            bit_array_str += '0'
+
+    # Step 3: Count the number of 1's in the bit array
+    num_ones = 0
+    for bit in bit_array:
+        if bit == 1:
+            num_ones += 1
+
+    # Step 4: Print the status of the bit array
+    print(f"\nBit Array for {dataset_name} after Adding '{element}':")
+    print("-" * 60)
+    print(bit_array_str)
+    print("-" * 60)
+    print("Indexes set by hash functions: " + ' '.join(str(i)
+          for i in indices))
+    print(f"Number of 1's in the bit array: {num_ones}")
