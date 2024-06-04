@@ -151,3 +151,11 @@ def print_bit_array_status(bit_array, element, hash_functions, dataset_name):
     print(f"Number of 1's in the bit array: {num_ones}")
 
 # Snippet 6: Function to Print Collisions
+
+
+def print_collisions(collision_tracker):
+
+    print("\nCollisions:")
+    for index, elements in collision_tracker.items():
+        if len(elements) > 1:
+            print(f"Index {index} is set by multiple elements: {elements}")
