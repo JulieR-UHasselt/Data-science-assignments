@@ -248,3 +248,16 @@ ip_addresses = [
     "8.8.8.8",
     "127.0.0.1",
 ]
+
+english_words = [
+    "apple",
+    "banana",
+    "cherry",
+    "date",
+    "elderberry",
+    "fig",
+    "grape",
+    "honeydew",
+    "kiwi",
+    "lemon",
+]
