@@ -261,3 +261,11 @@ english_words = [
     "kiwi",
     "lemon",
 ]
+
+dna_sequences = [
+    "AGCTTAGCTA",
+    "CGTAGCTAGC",
+    "TGCATGCACT",
+    "GCTAGCTAGC",
+    "TAGCTAGCTA",
+]
