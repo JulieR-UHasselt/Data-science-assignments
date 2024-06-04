@@ -149,3 +149,5 @@ def print_bit_array_status(bit_array, element, hash_functions, dataset_name):
     print("Indexes set by hash functions: " + ' '.join(str(i)
           for i in indices))
     print(f"Number of 1's in the bit array: {num_ones}")
+
+# Snippet 6: Function to Print Collisions
