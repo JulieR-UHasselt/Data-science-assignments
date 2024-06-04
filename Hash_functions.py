@@ -110,7 +110,15 @@ def insert_into_bit_array(element, bit_array, hash_functions, collision_tracker)
 
 
 def print_bit_array_status(bit_array, element, hash_functions, dataset_name):
+    """
+    Print the bit array and the indices set by the hash functions for a specific element.
 
+    Parameters:
+    bit_array (list): The bit array.
+    element (str): Element that was added.
+    hash_functions (list): List of hash functions.
+    dataset_name (str): Name of the dataset.
+    """
     # Step 1: Calculate the indices set by the hash functions
     indices = []
     for hash_fn in hash_functions:
