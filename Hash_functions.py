@@ -78,7 +78,15 @@ def create_hash_functions(k):
 
 
 def insert_into_bit_array(element, bit_array, hash_functions, collision_tracker):
+    """
+    Add an element to the bit array using the given hash functions.
 
+    Parameters:
+    element: The element to add to the bit array (can be any type).
+    bit_array: A list representing the bit array.
+    hash_functions: A list of hash functions.
+    collision_tracker: A dictionary to track collisions.
+    """
     # Loop through each hash function
     for hash_fn in hash_functions:
         # Get the hash value of the element using the hash function
