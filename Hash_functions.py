@@ -73,3 +73,27 @@ def create_hash_functions(k):
         hash_functions.append(hash_function)
 
     return hash_functions, random_seeds
+
+# Snippet 4: Function to Add Elements to the Bit Array and Track Collisions
+
+
+def insert_into_bit_array(element, bit_array, hash_functions, collision_tracker):
+
+    # Loop through each hash function
+    for hash_fn in hash_functions:
+        # Get the hash value of the element using the hash function
+        hash_value = hash_fn(element)
+
+        # Calculate the index by taking the modulus of the hash value with the length of the bit array
+        index = hash_value % len(bit_array)
+
+        # Check if the bit at the calculated index is already set (1)
+        if bit_array[index] == 1:
+            # If it is already set, it means there is a collision, so we track it
+            if index not in collision_tracker:
+                # Initialize the list if not already present
+                collision_tracker[index] = []
+            collision_tracker[index].append(element)
+
+        # Set the bit at the calculated index to 1
+        bit_array[index] = 1
