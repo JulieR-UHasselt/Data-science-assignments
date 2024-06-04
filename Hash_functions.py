@@ -30,6 +30,7 @@ def calculate_parameters(n, P):
     # Convert k_float to an integer, rounding up if needed
     k = int(k_float) + 1 if k_float > int(k_float) else int(k_float)
     return m, k
+
 # Snippet 3: Function to Create Hash Functions
 
 
