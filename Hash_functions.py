@@ -166,3 +166,6 @@ def print_collisions(collision_tracker):
             print(f"Index {index} is set by multiple elements: {elements}")
 
 # Snippet 7: Function to Process a Dataset
+
+
+def process_dataset(dataset, dataset_name, P=0.01):
