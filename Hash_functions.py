@@ -169,3 +169,50 @@ def print_collisions(collision_tracker):
 
 
 def process_dataset(dataset, dataset_name, P=0.01):
+    # 1: Calculate the number of elements in the dataset
+    n = len(dataset)
+
+    # 2: Calculate the size of the bit array (m) and the number of hash functions (k)
+    m, k = calculate_parameters(n, P)
+
+    # Print the calculated values
+    print(f"{dataset_name} Dataset: Number of elements(n)={n}, Bit array size(m)={
+          m}, Number of hash functions(k)={k}, Desired false positive probability(P)={P}")
+
+    # 3: Create hash functions for the dataset
+    hash_functions, seeds = create_hash_functions(k)
+
+    # 4: Initialize the bit array with all zeros
+    bit_array = [0] * m
+
+    # 5: Initialize the collision tracker as an empty dictionary
+    collision_tracker = {}
+
+    # 6: Process each item in the dataset
+    for item in dataset:
+        # Add the item to the bit array using the hash functions
+        insert_into_bit_array(
+            item, bit_array, hash_functions, collision_tracker)
+
+        # Print the current status of the bit array
+        print_bit_array_status(bit_array, item, hash_functions, dataset_name)
+
+    # 7: Print the hash functions and their corresponding seeds (this can be removed too)
+
+    # Print a header to indicate that we are showing the hash functions and their seeds
+    print(f"\nHash functions for {dataset_name} with seeds:")
+
+    # Initialize the counter to 1
+    i = 1
+
+    # Loop through the range of the number of hash functions
+    for index in range(len(hash_functions)):
+        # Get the hash function and seed at the current index
+        hash_fn = hash_functions[index]
+        seed = seeds[index]
+
+        # Print the hash function number and its seed
+        print(f"Hash function {i}: Seed = {seed}")
+
+        # Increment the counter
+        i += 1
