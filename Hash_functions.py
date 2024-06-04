@@ -169,6 +169,17 @@ def print_collisions(collision_tracker):
 
 
 def process_dataset(dataset, dataset_name, P=0.01):
+    """
+    Process a dataset with hashing and collision detection.
+
+    Parameters:
+    dataset: A list of elements in the dataset.
+    dataset_name: The name of the dataset.
+    P: The desired probability of false positives (default is 0.01).
+
+    Returns:
+    None
+    """
     # 1: Calculate the number of elements in the dataset
     n = len(dataset)
 
