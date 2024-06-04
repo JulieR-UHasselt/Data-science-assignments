@@ -233,3 +233,10 @@ def process_dataset(dataset, dataset_name, P=0.01):
 
 
 # Example datasets
+urls = [
+    "http://example.com",
+    "https://example.org",
+    "http://test.com",
+    "https://mywebsite.net",
+    "http://anotherexample.com",
+]
