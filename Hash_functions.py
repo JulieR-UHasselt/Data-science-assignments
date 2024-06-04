@@ -53,7 +53,15 @@ def create_hash_functions(k):
 
     # Define a function that creates a hash function using a seed
     def create_hash_function_with_seed(seed):
+        """
+        Create a hash function using the provided seed.
 
+        Parameters:
+        seed (int): The seed used to create the hash function.
+
+        Returns:
+        function: A hash function that hashes an item with the given seed.
+        """
         def hash_fn(item):
             # Convert the item to a string and concatenate with the seed
             return hash(str(item) + str(seed))
