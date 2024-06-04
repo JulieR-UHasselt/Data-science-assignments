@@ -154,7 +154,12 @@ def print_bit_array_status(bit_array, element, hash_functions, dataset_name):
 
 
 def print_collisions(collision_tracker):
+    """
+    Print collisions detected in the bit array.
 
+    Parameters:
+    collision_tracker (dict): Dictionary to track collisions.
+    """
     print("\nCollisions:")
     for index, elements in collision_tracker.items():
         if len(elements) > 1:
