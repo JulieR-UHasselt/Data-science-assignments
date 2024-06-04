@@ -30,3 +30,29 @@ def calculate_parameters(n, P):
     # Convert k_float to an integer, rounding up if needed
     k = int(k_float) + 1 if k_float > int(k_float) else int(k_float)
     return m, k
+# Snippet 3: Function to Create Hash Functions
+
+
+def create_hash_functions(k):
+
+    # Generate k random seeds
+    random_seeds = []
+    for i in range(k):
+        random_seeds.append(random.randint(0, 1000000))
+    # Create an empty list to store hash functions
+    hash_functions = []
+
+    # Define a function that creates a hash function using a seed
+    def create_hash_function_with_seed(seed):
+
+        def hash_fn(item):
+            # Convert the item to a string and concatenate with the seed
+            return hash(str(item) + str(seed))
+        return hash_fn
+
+    # Create k hash functions using the random seeds
+    for seed in random_seeds:
+        hash_function = create_hash_function_with_seed(seed)
+        hash_functions.append(hash_function)
+
+    return hash_functions, random_seeds
