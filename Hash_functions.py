@@ -1,28 +1,25 @@
 import math
-import random
 import hashlib
 import sys
 
 
 class Bloom_Filter:
 
-    def __init__(self, string):
-        self._string = string
-        self.m = None  # Size of the bit array
-        self.k = None  # Number of hash functions
-        self.i = 0  # Counter of words inserted
+    def __init__(self, dataset, P=0.01):
+        self.word_count = len(dataset)  # Counter of words inserted
+        self.P = P
+        self._calculate_parameters()
         self.bit_array = [0] * self.m  # Initialize the bit array with all zeros
+        for element in dataset:
+            self.insert_into_bit_array(element)
 
 
     # Function to Calculate Optimal Parameters
-    @classmethod
-    def _calculate_parameters(self, n, P):
+    def _calculate_parameters(self):
         """
-        Calculate the size of bit array (m) & number of hash functions (k).
-
-        Parameters:
-        n (int): Excepted number of elements in the dataset.
-        P (float): Desired probability of false positives.
+        Calculate the size of bit array (m) & number of hash functions (k)
+        based on the excepted number of elements in the dataset (word_count) and
+        the desired probability of false positives (P).
 
         Returns:
         tuple: Size of the bit array (m) and number of hash functions (k).
@@ -31,8 +28,8 @@ class Bloom_Filter:
         m = - (n * log(P)) / (log(2)^2)
         k = (m / n) * log(2)
         """
-        m_float = - (n * math.log(P)) / (math.log(2) ** 2)
-        k_float = (m_float / n) * math.log(2)
+        m_float = - (self.word_count * math.log(P)) / (math.log(2) ** 2)
+        k_float = (m_float / self.word_count) * math.log(2)
 
         # Convert m_float to an integer, rounding up if needed
         self.m = int(m_float) + 1 if m_float > int(m_float) else int(m_float)
@@ -122,29 +119,30 @@ class Bloom_Filter:
             if self.bit_array[index] == 0:
                 return False
         return True
-            
-    # Function to Setup the Word Counter
-    def setup_counter(self, list_of_elements):
-        for element in list_of_elements:
-            self.i += 1
+
+
+def create_BF_from_dataset(dataset, P=0.01):
+    return Bloom_Filter(dataset, P)
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python project.py")
+        print("Usage: python Hash_function.py <datafile_path>")
         sys.exit(1)
 
-    dataset = sys.argv[1]
+    dataset_filename = sys.argv[1]
     P = 0.01
 
-    file_extension = dataset.rsplit('.', 1)
-    if file_extension[-1] in [".txt", ".csv", ".xlsx", ".xls"]:
-        dataset = [element for element in dataset]
+    dataset= []
+    datafile = open(dataset_filename, 'r')
+    for data_item in datafile.readlines():
+        if data_item[-1] == "\n":
+
 
     Bloom_Filter.setup_counter(dataset)
     for element in dataset:
         Bloom_Filter.insert_into_bit_array(element)
-        Bloom_Filter.search_bit_array(element)    
+        Bloom_Filter.search_bit_array(element)
 
     # Print the calculated values
     print(f"{dataset} Dataset: Number of elements(n)={Bloom_Filter.n}, Bit array size(m)={Bloom_Filter.m}, "
