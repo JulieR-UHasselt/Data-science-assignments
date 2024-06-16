@@ -90,83 +90,8 @@ class Bloom_filter:
             index = int(digest, 16) % self.m
             self.bit_array[index] = 1
 
-
-#TO DO
-
-#Collision
-
-            # Check if the bit at the calculated index is already set (1)
-            if bit_array[index] == 1:
-                # If it is already set, it means there is a collision, so we track it
-                if index not in collision_tracker:
-                    # Initialize the list if not already present
-                    collision_tracker[index] = []
-                collision_tracker[index].append(element)
-
-
-# Snippet 5: Function to Print the Bit Array Status / this is only for visualization (can be removed later)
-
-
-def print_bit_array_status(bit_array, element, hash_functions, dataset_name):
-    """
-    Print the bit array and the indices set by the hash functions for a specific element.
-
-    Parameters:
-    bit_array (list): The bit array.
-    element (str): Element that was added.
-    hash_functions (list): List of hash functions.
-    dataset_name (str): Name of the dataset.
-    """
-    # Step 1: Calculate the indices set by the hash functions
-    indices = []
-    for hash_fn in hash_functions:
-        # Calculate the index for the current hash function
-        index = hash_fn(element) % len(bit_array)
-        # Add the index to the list of indices
-        indices.append(index)
-
-    # Step 2: Create a string representation of the bit array
-    bit_array_str = ''
-    for bit in bit_array:
-        if bit == 1:
-            bit_array_str += '1'
-        else:
-            bit_array_str += '0'
-
-    # Step 3: Count the number of 1's in the bit array
-    num_ones = 0
-    for bit in bit_array:
-        if bit == 1:
-            num_ones += 1
-
-    # Step 4: Print the status of the bit array
-    print(f"\nBit Array for {dataset_name} after Adding '{element}':")
-    print("-" * 60)
-    print(bit_array_str)
-    print("-" * 60)
-    print("Indexes set by hash functions: " + ' '.join(str(i)
-          for i in indices))
-    print(f"Number of 1's in the bit array: {num_ones}")
-
-# Snippet 6: Function to Print Collisions
-
-
-def print_collisions(collision_tracker):
-    """
-    Print collisions detected in the bit array.
-
-    Parameters:
-    collision_tracker (dict): Dictionary to track collisions.
-    """
-    print("\nCollisions:")
-    if not collision_tracker:
-        print("None")
-    else:
-        for index, elements in collision_tracker.items():
-            if len(elements) > 1:
-                print(f"Index {index} is set by multiple elements: {elements}")
-
-# Snippet 7: Function to Process a Dataset
+    
+    # Snippet 7: Function to Process a Dataset
 
 
 def process_dataset(dataset, dataset_name, P=0.01):
@@ -229,6 +154,83 @@ def process_dataset(dataset, dataset_name, P=0.01):
         # Increment the counter
         i += 1
 
-    # 8: Print the collisions detected in the bit array
+
+
+
+#TO DO
+#Collision
+
+            # Check if the bit at the calculated index is already set (1)
+            if bit_array[index] == 1:
+                # If it is already set, it means there is a collision, so we track it
+                if index not in collision_tracker:
+                    # Initialize the list if not already present
+                    collision_tracker[index] = []
+                collision_tracker[index].append(element)
+
+# Snippet 6: Function to Print Collisions
+
+
+def print_collisions(collision_tracker):
+    """
+    Print collisions detected in the bit array.
+
+    Parameters:
+    collision_tracker (dict): Dictionary to track collisions.
+    """
+    print("\nCollisions:")
+    if not collision_tracker:
+        print("None")
+    else:
+        for index, elements in collision_tracker.items():
+            if len(elements) > 1:
+                print(f"Index {index} is set by multiple elements: {elements}")
+
+# 8: Print the collisions detected in the bit array
     print_collisions(collision_tracker)
 
+
+#To remove
+# Snippet 5: Function to Print the Bit Array Status / this is only for visualization (can be removed later)
+
+
+def print_bit_array_status(bit_array, element, hash_functions, dataset_name):
+    """
+    Print the bit array and the indices set by the hash functions for a specific element.
+
+    Parameters:
+    bit_array (list): The bit array.
+    element (str): Element that was added.
+    hash_functions (list): List of hash functions.
+    dataset_name (str): Name of the dataset.
+    """
+    # Step 1: Calculate the indices set by the hash functions
+    indices = []
+    for hash_fn in hash_functions:
+        # Calculate the index for the current hash function
+        index = hash_fn(element) % len(bit_array)
+        # Add the index to the list of indices
+        indices.append(index)
+
+    # Step 2: Create a string representation of the bit array
+    bit_array_str = ''
+    for bit in bit_array:
+        if bit == 1:
+            bit_array_str += '1'
+        else:
+            bit_array_str += '0'
+
+    # Step 3: Count the number of 1's in the bit array
+    num_ones = 0
+    for bit in bit_array:
+        if bit == 1:
+            num_ones += 1
+
+    # Step 4: Print the status of the bit array
+    print(f"\nBit Array for {dataset_name} after Adding '{element}':")
+    print("-" * 60)
+    print(bit_array_str)
+    print("-" * 60)
+    print("Indexes set by hash functions: " + ' '.join(str(i)
+          for i in indices))
+    print(f"Number of 1's in the bit array: {num_ones}")
