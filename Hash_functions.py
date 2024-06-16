@@ -10,7 +10,7 @@ class Bloom_filter:
         self._string = string
         self.m = None  # Size of the bit array
         self.k = None  # Number of hash functions
-        self.i = None  # Counter of words inserted
+        self.i = 0  # Counter of words inserted
         self.bit_array = [0] * self.m  # Initialize the bit array with all zeros
 
 
@@ -111,7 +111,7 @@ class Bloom_filter:
     # Set up Word Counter
     def setup_counter(self, list_of_elements):
         for element in list_of_elements:
-            i += 1  
+            self.i += 1
             
             
     # dataset, dataset_name, P=0.01):
@@ -161,9 +161,6 @@ class Bloom_filter:
 
     #         # Print the hash function number and its seed
     #         print(f"Hash function {i}: Seed = {seed}")
-
-    #         # Increment the counter
-    #         i += 1
 
 
 
