@@ -15,7 +15,8 @@ class Bloom_Filter:
 
 
     # Function to Calculate Optimal Parameters
-    def calculate_parameters(self, n, P):
+    @classmethod
+    def _calculate_parameters(self, n, P):
         """
         Calculate the size of bit array (m) & number of hash functions (k).
 
@@ -74,6 +75,20 @@ class Bloom_Filter:
     #     self.hash_function = [create_hash_function_with_seed(seed) for seed in self.random_seeds]
 
     #     return self.hash_functions, self.random_seeds
+
+    #     # 7: Print the hash functions and their corresponding seeds (this can be removed too)
+
+    #     # Print a header to indicate that we are showing the hash functions and their seeds
+    #     print(f"\nHash functions for {dataset_name} with seeds:")
+
+    #     # Loop through the range of the number of hash functions
+    #     for index in range(len(hash_functions)):
+    #         # Get the hash function and seed at the current index
+    #         hash_fn = hash_functions[index]
+    #         seed = seeds[index]
+
+    #         # Print the hash function number and its seed
+    #         print(f"Hash function {i}: Seed = {seed}")
     
 
     # Function to Add Elements to the Bloom Filter
@@ -108,7 +123,7 @@ class Bloom_Filter:
                 return False
         return True
             
-    # Set up Word Counter
+    # Function to Setup the Word Counter
     def setup_counter(self, list_of_elements):
         for element in list_of_elements:
             self.i += 1
@@ -122,54 +137,19 @@ if __name__ == "__main__":
     dataset = sys.argv[1]
     P = 0.01
 
-            
-    # dataset, dataset_name, P=0.01):
-    #     """
-    #     Process a dataset with hashing and collision detection.
+    Bloom_Filter.setup_counter(dataset)
+    for element in dataset:
+        Bloom_Filter.insert_into_bit_array(element)
+        Bloom_Filter.search_bit_array(element)    
 
-    #     Parameters:
-    #     dataset: A list of elements in the dataset.
-    #     dataset_name: The name of the dataset.
-    #     P: The desired probability of false positives (default is 0.01).
+    # Print the calculated values
+    print(f"{dataset} Dataset: Number of elements(n)={n}, Bit array size(m)={Bloom_Filter.m}, "
+        f"Number of hash functions(k)={Bloom_Filter.k}, Desired false positive probability(P)={P}")
 
-    #     Returns:
-    #     None
-    #     """
-    #     # 1: Calculate the number of elements in the dataset
-    #     n = len(dataset)
 
-    #     # 2: Calculate the size of the bit array (m) and the number of hash functions (k)
-    #     m, k = calculate_parameters(n, P)
 
-    #     # Print the calculated values
-    #     print(f"{dataset_name} Dataset: Number of elements(n)={n}, Bit array size(m)={m}, "
-    #         f"Number of hash functions(k)={k}, Desired false positive probability(P)={P}")
 
-    #     # 3: Create hash functions for the dataset
-    #     hash_functions, seeds = create_hash_functions(k)
 
-    #     # 6: Process each item in the dataset
-    #     for item in dataset:
-    #         # Add the item to the bit array using the hash functions
-    #         insert_into_bit_array(
-    #             item, bit_array, hash_functions, collision_tracker)
-
-    #         # Print the current status of the bit array
-    #         print_bit_array_status(bit_array, item, hash_functions, dataset_name)
-
-    #     # 7: Print the hash functions and their corresponding seeds (this can be removed too)
-
-    #     # Print a header to indicate that we are showing the hash functions and their seeds
-    #     print(f"\nHash functions for {dataset_name} with seeds:")
-
-    #     # Loop through the range of the number of hash functions
-    #     for index in range(len(hash_functions)):
-    #         # Get the hash function and seed at the current index
-    #         hash_fn = hash_functions[index]
-    #         seed = seeds[index]
-
-    #         # Print the hash function number and its seed
-    #         print(f"Hash function {i}: Seed = {seed}")
 
 
 
@@ -251,3 +231,6 @@ def print_bit_array_status(bit_array, element, hash_functions, dataset_name):
     print("Indexes set by hash functions: " + ' '.join(str(i)
           for i in indices))
     print(f"Number of 1's in the bit array: {num_ones}")
+
+#         # Print the current status of the bit array
+#         print_bit_array_status(bit_array, item, hash_functions, dataset_name)
