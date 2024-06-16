@@ -8,9 +8,9 @@ class Bloom_filter:
 
     def __init__(self, string):
         self._string = string
-        self.m = None # Size of the bit array
-        self.k = None # Number of hash functions
-        self.bit_array = [0] * self.m # Initialize the bit array with all zeros
+        self.m = None  # Size of the bit array
+        self.k = None  # Number of hash functions
+        self.bit_array = [0] * self.m  # Initialize the bit array with all zeros
 
 
     # Function to Calculate Optimal Parameters
@@ -19,7 +19,7 @@ class Bloom_filter:
         Calculate the size of bit array (m) & number of hash functions (k).
 
         Parameters:
-        n (int): Number of elements in the dataset.
+        n (int): Excepted number of elements in the dataset.
         P (float): Desired probability of false positives.
 
         Returns:
@@ -91,68 +91,68 @@ class Bloom_filter:
             self.bit_array[index] = 1
 
     
-    # Snippet 7: Function to Process a Dataset
+    # Function to Search Elements in the Bloom filter
+    def search_bit_array(self, element):
+        for i in range(self.k):
+            digest = hashlib.sha1((str(element) + str(i)).encode('utf-8')).hexdigest()
+            index = int(digest, 16) % self.m
+            if self.bit_array[index] == 0:
+                return False
+        return True
+            
+            
+            
+            
+    # dataset, dataset_name, P=0.01):
+    #     """
+    #     Process a dataset with hashing and collision detection.
 
+    #     Parameters:
+    #     dataset: A list of elements in the dataset.
+    #     dataset_name: The name of the dataset.
+    #     P: The desired probability of false positives (default is 0.01).
 
-def process_dataset(dataset, dataset_name, P=0.01):
-    """
-    Process a dataset with hashing and collision detection.
+    #     Returns:
+    #     None
+    #     """
+    #     # 1: Calculate the number of elements in the dataset
+    #     n = len(dataset)
 
-    Parameters:
-    dataset: A list of elements in the dataset.
-    dataset_name: The name of the dataset.
-    P: The desired probability of false positives (default is 0.01).
+    #     # 2: Calculate the size of the bit array (m) and the number of hash functions (k)
+    #     m, k = calculate_parameters(n, P)
 
-    Returns:
-    None
-    """
-    # 1: Calculate the number of elements in the dataset
-    n = len(dataset)
+    #     # Print the calculated values
+    #     print(f"{dataset_name} Dataset: Number of elements(n)={n}, Bit array size(m)={m}, "
+    #         f"Number of hash functions(k)={k}, Desired false positive probability(P)={P}")
 
-    # 2: Calculate the size of the bit array (m) and the number of hash functions (k)
-    m, k = calculate_parameters(n, P)
+    #     # 3: Create hash functions for the dataset
+    #     hash_functions, seeds = create_hash_functions(k)
 
-    # Print the calculated values
-    print(f"{dataset_name} Dataset: Number of elements(n)={n}, Bit array size(m)={m}, "
-          f"Number of hash functions(k)={k}, Desired false positive probability(P)={P}")
+    #     # 6: Process each item in the dataset
+    #     for item in dataset:
+    #         # Add the item to the bit array using the hash functions
+    #         insert_into_bit_array(
+    #             item, bit_array, hash_functions, collision_tracker)
 
-    # 3: Create hash functions for the dataset
-    hash_functions, seeds = create_hash_functions(k)
+    #         # Print the current status of the bit array
+    #         print_bit_array_status(bit_array, item, hash_functions, dataset_name)
 
-    # 4: Initialize the bit array with all zeros
-    bit_array = [0] * m
+    #     # 7: Print the hash functions and their corresponding seeds (this can be removed too)
 
-    # 5: Initialize the collision tracker as an empty dictionary
-    collision_tracker = {}
+    #     # Print a header to indicate that we are showing the hash functions and their seeds
+    #     print(f"\nHash functions for {dataset_name} with seeds:")
 
-    # 6: Process each item in the dataset
-    for item in dataset:
-        # Add the item to the bit array using the hash functions
-        insert_into_bit_array(
-            item, bit_array, hash_functions, collision_tracker)
+    #     # Loop through the range of the number of hash functions
+    #     for index in range(len(hash_functions)):
+    #         # Get the hash function and seed at the current index
+    #         hash_fn = hash_functions[index]
+    #         seed = seeds[index]
 
-        # Print the current status of the bit array
-        print_bit_array_status(bit_array, item, hash_functions, dataset_name)
+    #         # Print the hash function number and its seed
+    #         print(f"Hash function {i}: Seed = {seed}")
 
-    # 7: Print the hash functions and their corresponding seeds (this can be removed too)
-
-    # Print a header to indicate that we are showing the hash functions and their seeds
-    print(f"\nHash functions for {dataset_name} with seeds:")
-
-    # Initialize the counter to 1
-    i = 1
-
-    # Loop through the range of the number of hash functions
-    for index in range(len(hash_functions)):
-        # Get the hash function and seed at the current index
-        hash_fn = hash_functions[index]
-        seed = seeds[index]
-
-        # Print the hash function number and its seed
-        print(f"Hash function {i}: Seed = {seed}")
-
-        # Increment the counter
-        i += 1
+    #         # Increment the counter
+    #         i += 1
 
 
 
