@@ -1,6 +1,6 @@
-# Snippet 1: Importing Required Libraries
 import math
 import random
+import hashlib
 import sys
 
 
@@ -8,14 +8,13 @@ class Bloom_filter:
 
     def __init__(self, string):
         self._string = string
-        self.m = None
-        self.k = None
-        self.hash_functions = None
-        self.random_seeds = None
+        self.m = None # Size of the bit array
+        self.k = None # Number of hash functions
+        self.bit_array = [0] * self.m # Initialize the bit array with all zeros
 
 
     # Function to Calculate Optimal Parameters
-    def _calculate_parameters(self, n, P):
+    def calculate_parameters(self, n, P):
         """
         Calculate the size of bit array (m) & number of hash functions (k).
 
@@ -30,8 +29,8 @@ class Bloom_filter:
         m = - (n * log(P)) / (log(2)^2)
         k = (m / n) * log(2)
         """
-        m_float = - (n * math.log(P)) / (math.log(2) ** 2)  # Size of the bit array
-        k_float = (m_float / n) * math.log(2)  # Number of hash functions
+        m_float = - (n * math.log(P)) / (math.log(2) ** 2)
+        k_float = (m_float / n) * math.log(2)
 
         # Convert m_float to an integer, rounding up if needed
         self.m = int(m_float) + 1 if m_float > int(m_float) else int(m_float)
@@ -40,63 +39,56 @@ class Bloom_filter:
         return self.m, self.k
     
 
-    # Function to Create Hash Functions
-    def create_hash_functions(self, k):
-        """
-        Create k hash functions each with random seeds.
+    # # Function to Create Hash Functions
+    # def create_hash_functions(self, k):
+    #     """
+    #     Create k hash functions each with random seeds.
 
-        Parameters:
-        k (int): Number of hash functions to create.
+    #     Parameters:
+    #     k (int): Number of hash functions to create.
 
-        Returns:
-        tuple: List of hash functions and their corresponding seeds.
-        """
-        # Generate k random seeds
-        self.random_seeds = [random.randint(0, 1000000) for i in range(k)]
+    #     Returns:
+    #     tuple: List of hash functions and their corresponding seeds.
+    #     """
+    #     # Generate k random seeds
+    #     self.random_seeds = [random.randint(0, 1000000) for i in range(k)]
 
-        # Define a function that creates a hash function using a seed
-        def create_hash_function_with_seed(seed):
-            """
-            Create a hash function using the provided seed.
+    #     # Define a function that creates a hash function using a seed
+    #     def create_hash_function_with_seed(seed):
+    #         """
+    #         Create a hash function using the provided seed.
 
-            Parameters:
-            seed (int): The seed used to create the hash function.
+    #         Parameters:
+    #         seed (int): The seed used to create the hash function.
 
-            Returns:
-            function: A hash function that hashes an item with the given seed.
-            """
-            def hash_fn(item):
-                # Convert the item to a string and concatenate with the seed
-                return hash(str(item) + str(seed))
-            return hash_fn
+    #         Returns:
+    #         function: A hash function that hashes an item with the given seed.
+    #         """
+    #         def hash_fn(item):
+    #             # Convert the item to a string and concatenate with the seed
+    #             return hash(str(item) + str(seed))
+    #         return hash_fn
 
-        # Create k hash functions using the random seeds
-        self.hash_function = [create_hash_function_with_seed(seed) for seed in self.random_seeds]
+    #     # Create k hash functions using the random seeds
+    #     self.hash_function = [create_hash_function_with_seed(seed) for seed in self.random_seeds]
 
-        return self.hash_functions, self.random_seeds
+    #     return self.hash_functions, self.random_seeds
     
 
-    # Function to Add Elements to the Bit Array and Track Collisions
-    def insert_into_bit_array(element, bit_array, hash_functions):
+    # Function to Add Elements to the Bloom Filter
+    def insert_into_bit_array(self, element):
         """
-        Add an element to the bit array using the given hash functions.
+        Add an element to the bit array using the given number hash functions
+        and the size of the array.
 
         Parameters:
         element: The element to add to the bit array (can be any type).
         bit_array: A list representing the bit array.
-        hash_functions: A list of hash functions.
-        collision_tracker: A dictionary to track collisions.
         """
-        # Loop through each hash function
-        for hash_fn in hash_functions:
-            # Get the hash value of the element using the hash function
-            hash_value = hash_fn(element)
-
-            # Calculate the index by taking the modulus of the hash value with the length of the bit array
-            index = hash_value % len(bit_array)
-
-            # Set the bit at the calculated index to 1
-            bit_array[index] = 1
+        for i in range(self.k):
+            digest = hashlib.sha1((str(element) + str(i)).encode('utf-8')).hexdigest()
+            index = int(digest, 16) % self.m
+            self.bit_array[index] = 1
 
 
 #TO DO
