@@ -1,110 +1,116 @@
 # Snippet 1: Importing Required Libraries
 import math
 import random
-
-# Snippet 2: Function to Calculate Optimal Parameters
-
-"""
-    Calculate the size of the bit array (m) and the number of hash functions (k).
-
-    Parameters:
-    n (int): Number of elements in the dataset.
-    P (float): Desired probability of false positives.
-
-    Returns:
-    tuple: Size of the bit array (m) and number of hash functions (k).
-
-    Formulas:
-    m = - (n * log(P)) / (log(2)^2)
-    k = (m / n) * log(2)
-    """
+import sys
 
 
-def calculate_parameters(n, P):
+class Bloom_filter:
 
-    m_float = - (n * math.log(P)) / (math.log(2) ** 2)  # Size of the bit array
-    k_float = (m_float / n) * math.log(2)  # Number of hash functions
-
-    # Convert m_float to an integer, rounding up if needed
-    m = int(m_float) + 1 if m_float > int(m_float) else int(m_float)
-    # Convert k_float to an integer, rounding up if needed
-    k = int(k_float) + 1 if k_float > int(k_float) else int(k_float)
-    return m, k
-
-# Snippet 3: Function to Create Hash Functions
+    def __init__(self, string):
+        self._string = string
+        self.m = None
+        self.k = None
+        self.hash_functions = None
+        self.random_seeds = None
 
 
-def create_hash_functions(k):
-    """
-    Create k hash functions each with random seeds.
-
-    Parameters:
-    k (int): Number of hash functions to create.
-
-    Returns:
-    tuple: List of hash functions and their corresponding seeds.
-    """
-    # Generate k random seeds
-    random_seeds = []
-    for i in range(k):
-        random_seeds.append(random.randint(0, 1000000))
-    # Create an empty list to store hash functions
-    hash_functions = []
-
-    # Define a function that creates a hash function using a seed
-    def create_hash_function_with_seed(seed):
+    # Function to Calculate Optimal Parameters
+    def _calculate_parameters(self, n, P):
         """
-        Create a hash function using the provided seed.
+        Calculate the size of bit array (m) & number of hash functions (k).
 
         Parameters:
-        seed (int): The seed used to create the hash function.
+        n (int): Number of elements in the dataset.
+        P (float): Desired probability of false positives.
 
         Returns:
-        function: A hash function that hashes an item with the given seed.
+        tuple: Size of the bit array (m) and number of hash functions (k).
+
+        Formulas:
+        m = - (n * log(P)) / (log(2)^2)
+        k = (m / n) * log(2)
         """
-        def hash_fn(item):
-            # Convert the item to a string and concatenate with the seed
-            return hash(str(item) + str(seed))
-        return hash_fn
+        m_float = - (n * math.log(P)) / (math.log(2) ** 2)  # Size of the bit array
+        k_float = (m_float / n) * math.log(2)  # Number of hash functions
 
-    # Create k hash functions using the random seeds
-    for seed in random_seeds:
-        hash_function = create_hash_function_with_seed(seed)
-        hash_functions.append(hash_function)
+        # Convert m_float to an integer, rounding up if needed
+        self.m = int(m_float) + 1 if m_float > int(m_float) else int(m_float)
+        # Convert k_float to an integer, rounding up if needed
+        self.k = int(k_float) + 1 if k_float > int(k_float) else int(k_float)
+        return self.m, self.k
+    
 
-    return hash_functions, random_seeds
+    # Function to Create Hash Functions
+    def create_hash_functions(self, k):
+        """
+        Create k hash functions each with random seeds.
 
-# Snippet 4: Function to Add Elements to the Bit Array and Track Collisions
+        Parameters:
+        k (int): Number of hash functions to create.
+
+        Returns:
+        tuple: List of hash functions and their corresponding seeds.
+        """
+        # Generate k random seeds
+        self.random_seeds = [random.randint(0, 1000000) for i in range(k)]
+
+        # Define a function that creates a hash function using a seed
+        def create_hash_function_with_seed(seed):
+            """
+            Create a hash function using the provided seed.
+
+            Parameters:
+            seed (int): The seed used to create the hash function.
+
+            Returns:
+            function: A hash function that hashes an item with the given seed.
+            """
+            def hash_fn(item):
+                # Convert the item to a string and concatenate with the seed
+                return hash(str(item) + str(seed))
+            return hash_fn
+
+        # Create k hash functions using the random seeds
+        self.hash_function = [create_hash_function_with_seed(seed) for seed in self.random_seeds]
+
+        return self.hash_functions, self.random_seeds
+    
+
+    # Function to Add Elements to the Bit Array and Track Collisions
+    def insert_into_bit_array(element, bit_array, hash_functions):
+        """
+        Add an element to the bit array using the given hash functions.
+
+        Parameters:
+        element: The element to add to the bit array (can be any type).
+        bit_array: A list representing the bit array.
+        hash_functions: A list of hash functions.
+        collision_tracker: A dictionary to track collisions.
+        """
+        # Loop through each hash function
+        for hash_fn in hash_functions:
+            # Get the hash value of the element using the hash function
+            hash_value = hash_fn(element)
+
+            # Calculate the index by taking the modulus of the hash value with the length of the bit array
+            index = hash_value % len(bit_array)
+
+            # Set the bit at the calculated index to 1
+            bit_array[index] = 1
 
 
-def insert_into_bit_array(element, bit_array, hash_functions, collision_tracker):
-    """
-    Add an element to the bit array using the given hash functions.
+#TO DO
 
-    Parameters:
-    element: The element to add to the bit array (can be any type).
-    bit_array: A list representing the bit array.
-    hash_functions: A list of hash functions.
-    collision_tracker: A dictionary to track collisions.
-    """
-    # Loop through each hash function
-    for hash_fn in hash_functions:
-        # Get the hash value of the element using the hash function
-        hash_value = hash_fn(element)
+#Collision
 
-        # Calculate the index by taking the modulus of the hash value with the length of the bit array
-        index = hash_value % len(bit_array)
+            # Check if the bit at the calculated index is already set (1)
+            if bit_array[index] == 1:
+                # If it is already set, it means there is a collision, so we track it
+                if index not in collision_tracker:
+                    # Initialize the list if not already present
+                    collision_tracker[index] = []
+                collision_tracker[index].append(element)
 
-        # Check if the bit at the calculated index is already set (1)
-        if bit_array[index] == 1:
-            # If it is already set, it means there is a collision, so we track it
-            if index not in collision_tracker:
-                # Initialize the list if not already present
-                collision_tracker[index] = []
-            collision_tracker[index].append(element)
-
-        # Set the bit at the calculated index to 1
-        bit_array[index] = 1
 
 # Snippet 5: Function to Print the Bit Array Status / this is only for visualization (can be removed later)
 
@@ -161,9 +167,12 @@ def print_collisions(collision_tracker):
     collision_tracker (dict): Dictionary to track collisions.
     """
     print("\nCollisions:")
-    for index, elements in collision_tracker.items():
-        if len(elements) > 1:
-            print(f"Index {index} is set by multiple elements: {elements}")
+    if not collision_tracker:
+        print("None")
+    else:
+        for index, elements in collision_tracker.items():
+            if len(elements) > 1:
+                print(f"Index {index} is set by multiple elements: {elements}")
 
 # Snippet 7: Function to Process a Dataset
 
@@ -187,8 +196,8 @@ def process_dataset(dataset, dataset_name, P=0.01):
     m, k = calculate_parameters(n, P)
 
     # Print the calculated values
-    print(f"{dataset_name} Dataset: Number of elements(n)={n}, Bit array size(m)={
-          m}, Number of hash functions(k)={k}, Desired false positive probability(P)={P}")
+    print(f"{dataset_name} Dataset: Number of elements(n)={n}, Bit array size(m)={m}, "
+          f"Number of hash functions(k)={k}, Desired false positive probability(P)={P}")
 
     # 3: Create hash functions for the dataset
     hash_functions, seeds = create_hash_functions(k)
@@ -231,56 +240,3 @@ def process_dataset(dataset, dataset_name, P=0.01):
     # 8: Print the collisions detected in the bit array
     print_collisions(collision_tracker)
 
-
-# Example datasets
-urls = [
-    "http://example.com",
-    "https://example.org",
-    "http://test.com",
-    "https://mywebsite.net",
-    "http://anotherexample.com",
-]
-
-emails = [
-    "example1@example.com",
-    "user2@test.org",
-    "contact@mydomain.net",
-    "admin@website.com",
-    "info@anotherexample.com",
-]
-
-ip_addresses = [
-    "192.168.0.1",
-    "10.0.0.2",
-    "172.16.0.3",
-    "8.8.8.8",
-    "127.0.0.1",
-]
-
-english_words = [
-    "apple",
-    "banana",
-    "cherry",
-    "date",
-    "elderberry",
-    "fig",
-    "grape",
-    "honeydew",
-    "kiwi",
-    "lemon",
-]
-
-dna_sequences = [
-    "AGCTTAGCTA",
-    "CGTAGCTAGC",
-    "TGCATGCACT",
-    "GCTAGCTAGC",
-    "TAGCTAGCTA",
-]
-
-# Process each dataset
-process_dataset(urls, "URLs")
-process_dataset(ip_addresses, "IP Addresses")
-process_dataset(english_words, "English Words")
-process_dataset(dna_sequences, "DNA Sequences")
-process_dataset(emails, "Email Addresses")
