@@ -93,6 +93,13 @@ class Bloom_filter:
     
     # Function to Search Elements in the Bloom filter
     def search_bit_array(self, element):
+        """
+        Search an element in the bit array.
+
+        Parameters:
+        element: The element to check in the bit array (can be any type).
+        bit_array: A list representing the bit array.
+        """   
         for i in range(self.k):
             digest = hashlib.sha1((str(element) + str(i)).encode('utf-8')).hexdigest()
             index = int(digest, 16) % self.m
@@ -100,7 +107,7 @@ class Bloom_filter:
                 return False
         return True
             
-            
+           
             
             
     # dataset, dataset_name, P=0.01):
