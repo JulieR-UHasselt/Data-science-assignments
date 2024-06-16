@@ -4,7 +4,7 @@ import hashlib
 import sys
 
 
-class Bloom_filter:
+class Bloom_Filter:
 
     def __init__(self, string):
         self._string = string
@@ -91,7 +91,7 @@ class Bloom_filter:
             index = int(digest, 16) % self.m
             self.bit_array[index] = 1
 
-    
+  
     # Function to Search Elements in the Bloom filter
     def search_bit_array(self, element):
         """
@@ -112,7 +112,16 @@ class Bloom_filter:
     def setup_counter(self, list_of_elements):
         for element in list_of_elements:
             self.i += 1
-            
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python project.py")
+        sys.exit(1)
+
+    dataset = sys.argv[1]
+    P = 0.01
+
             
     # dataset, dataset_name, P=0.01):
     #     """
