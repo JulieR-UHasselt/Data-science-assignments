@@ -6,3 +6,4 @@ The purpose of the project is to implement a bloom filter.
 #reference to the files to add
 
 # summary of your conclusions
+We chose to implement the bloom filter using a functional approach.
