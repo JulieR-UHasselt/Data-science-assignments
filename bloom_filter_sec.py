@@ -16,10 +16,10 @@ class Bloom_Filter:
     def _calculate_parameters(self):
         m_float = - (self.word_count * math.log(self.P)) / (math.log(2) ** 2)
         k_float = (m_float / self.word_count) * math.log(2)
-        self.m = math.ceil(m_float)
-        self.k = math.ceil(k_float)
+        self.m = int(m_float) + 1 if m_float > int(m_float) else int(m_float)
+        self.k = int(k_float) + 1 if k_float > int(k_float) else int(k_float)
 
-    def insert_into_bit_array(self, element):
+   def insert_into_bit_array(self, element):
         for i in range(self.k):
             digest = hashlib.sha1(
                 (str(element) + str(i)).encode('utf-8')).hexdigest()
