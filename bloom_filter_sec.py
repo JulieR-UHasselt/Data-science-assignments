@@ -19,7 +19,7 @@ class Bloom_Filter:
         self.m = int(m_float) + 1 if m_float > int(m_float) else int(m_float)
         self.k = int(k_float) + 1 if k_float > int(k_float) else int(k_float)
 
-   def insert_into_bit_array(self, element):
+    def insert_into_bit_array(self, element):
         for i in range(self.k):
             digest = hashlib.sha1(
                 (str(element) + str(i)).encode('utf-8')).hexdigest()
