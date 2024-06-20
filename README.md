@@ -10,3 +10,4 @@ We chose to implement the bloom filter using a functional approach.
 
 # source of datasets:
 - words.txt: https://github.com/dwyl/english-words?tab=readme-ov-file
+- sequences.txt: https://github.com/MuhammadShan7/genome
