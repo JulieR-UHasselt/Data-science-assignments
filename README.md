@@ -7,3 +7,6 @@ The purpose of the project is to implement a bloom filter.
 
 # summary of your conclusions
 We chose to implement the bloom filter using a functional approach.
+
+# source of datasets:
+- words.txt: https://github.com/dwyl/english-words?tab=readme-ov-file

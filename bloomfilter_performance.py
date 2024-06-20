@@ -15,8 +15,8 @@ class BloomFilter:
         Initialize the Bloom Filter with items.
 
         Parameters:
-            dataset (list): Items to add to the Bloom Filter.
-            P (float): Desired false positive rate, default is 0.01.
+            dataset(list): Items to add to the Bloom Filter.
+            P(float): Desired false positive rate, default is 0.01.
         """
         self.word_count = len(dataset)
         self.P = P
@@ -27,9 +27,9 @@ class BloomFilter:
 
     def _calculate_parameters(self):
         """
-        Calculate the size of bit array (m) & number of hash functions (k)
-        based on the expected number of elements in the dataset (word_count) and
-        the desired probability of false positives (P).
+        Calculate the size of bit array(m) & number of hash functions(k)
+        based on the expected number of elements in the dataset(word_count) and
+        the desired probability of false positives(P).
         """
         m_float = - (self.word_count * math.log(self.P)) / (math.log(2) ** 2)
         k_float = (m_float / self.word_count) * math.log(2)
@@ -42,7 +42,7 @@ class BloomFilter:
         determined by hashing the item k times.
 
         Parameters:
-            element (str): The item to add.
+            element(str): The item to add.
         """
         for i in range(self.k):
             digest = hashlib.sha1(
@@ -56,10 +56,10 @@ class BloomFilter:
         all k bits corresponding to the k hashes of the item are set.
 
         Parameters:
-            element (str): The item to check.
+            element(str): The item to check.
 
         Returns:
-            bool: True if the item might be in the set, False if it is definitely not.
+            bool: True if the item might be in the set, False if it is definitely not .
         """
         for i in range(self.k):
             digest = hashlib.sha1(
@@ -78,9 +78,9 @@ class BloomFilterPerformanceTest:
         Set up the performance test.
 
         Parameters:
-            dataset (list): The list of items to test with.
-            num_runs (int): How many times to run the test (default is 10).
-            num_queries (int): How many queries to make for false positives (default is 1000).
+            dataset(list): The list of items to test with .
+            num_runs(int): How many times to run the test(default is 10).
+            num_queries(int): How many queries to make for false positives(default is 1000).
         """
         self.dataset = dataset
         self.num_runs = num_runs
@@ -95,8 +95,8 @@ class BloomFilterPerformanceTest:
         Create a Bloom Filter from the dataset.
 
         Parameters:
-            dataset (list): The list of items to add to the Bloom Filter.
-            P (float): Desired false positive rate, default is 0.01.
+            dataset(list): The list of items to add to the Bloom Filter.
+            P(float): Desired false positive rate, default is 0.01.
 
         Returns:
             BloomFilter: A Bloom Filter initialized with the dataset.
@@ -108,8 +108,8 @@ class BloomFilterPerformanceTest:
         Check all items in the dataset against the Bloom Filter.
 
         Parameters:
-            bf (BloomFilter): The Bloom Filter to search with.
-            dataset (list): The list of items to check.
+            bf(BloomFilter): The Bloom Filter to search with .
+            dataset(list): The list of items to check.
         """
         for element in dataset:
             bf.search_bit_array(element)
@@ -119,7 +119,7 @@ class BloomFilterPerformanceTest:
         Create a random word of a given length.
 
         Parameters:
-            length (int): Length of the word to generate, default is 10.
+            length(int): Length of the word to generate, default is 10.
 
         Returns:
             str: A randomly generated word.
@@ -132,9 +132,9 @@ class BloomFilterPerformanceTest:
         Create a list of random words not in the dataset.
 
         Parameters:
-            dataset (list): The original dataset to ensure new words are not in it.
-            num_words (int): Number of random words to generate.
-            length (int): Length of each random word, default is 10.
+            dataset(list): The original dataset to ensure new words are not in it.
+            num_words(int): Number of random words to generate.
+            length(int): Length of each random word, default is 10.
 
         Returns:
             list: A list of random words not in the dataset.
