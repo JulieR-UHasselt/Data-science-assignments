@@ -1,3 +1,5 @@
+from Hash_functions import create_BF_from_dataset
+
 
 
 # Example datasets
@@ -9,6 +11,10 @@ urls = [
     "http://anotherexample.com",
 ]
 
+url_bloom = create_BF_from_dataset(urls, P=0.05)
+print(url_bloom)
+
+
 emails = [
     "example1@example.com",
     "user2@test.org",
@@ -16,6 +22,9 @@ emails = [
     "admin@website.com",
     "info@anotherexample.com",
 ]
+
+# emails_bloom = create_BF_from_dataset(urls, 0.01)
+
 
 ip_addresses = [
     "192.168.0.1",
@@ -45,3 +54,4 @@ dna_sequences = [
     "GCTAGCTAGC",
     "TAGCTAGCTA",
 ]
+
