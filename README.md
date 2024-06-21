@@ -9,8 +9,14 @@ The purpose of the project is to implement a bloom filter.
 We chose to implement the bloom filter using a functional approach.
 
 # source of datasets:
-- words.txt: https://github.com/dwyl/english-words?tab=readme-ov-file
-- sequences.txt: https://github.com/MuhammadShan7/genome
+Words Data Source
+The list of over 479,000 English words is sourced from the "dwyl/english-words" repository on GitHub. This dataset is useful for various dictionary and word-based projects, such as auto-completion and autosuggestion.
+"English Words Dataset." GitHub, dwyl, https://github.com/dwyl/english-words/blob/master/words.txt. Accessed June 21, 2024.
+
+Genome Sequences Data Source
+The genome sequences data can be found in the "genome" repository by MuhammadShan7 on GitHub. This repository contains genomic data and related tools.
+"Genome Sequences Dataset." GitHub, MuhammadShan7, https://github.com/MuhammadShan7/genome. Accessed June 21, 2024.
+
 # Conclusion_ performance test
 The Bloom Filter performance test successfully processed a dataset of 466,550 English words from words.txt. Over 10 runs, the creation time averaged around 16.9 seconds, with memory usage consistently at approximately 35.775 MB. The average search time remained extremely fast at 0.000008 seconds per query. The false positive rate varied between 0.40% and 1.50%, indicating the Bloom Filter's effectiveness in maintaining a low rate of incorrect positive identifications.
 
