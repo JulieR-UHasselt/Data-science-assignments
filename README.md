@@ -28,10 +28,6 @@ The `BloomFilterPerformanceTest` class tests the performance of the Bloom Filter
 - `search_bf(self, bf, dataset)`: Checks all items in the dataset against the Bloom Filter.
 - `generate_random_words_not_in_dataset(self, dataset, num_words, length=10)`: Generates random words not in the dataset.
 - `run_tests(self)`: Runs the performance tests on the Bloom Filter.
-- `measure_creation_time_and_memory(self, sample_dataset)`: Measures the creation time and memory usage of the Bloom Filter.
-- `measure_insertion_time(self, bf, sample_dataset)`: Measures the insertion time for the dataset.
-- `measure_search_time(self, bf, sample_dataset)`: Measures the search time for the dataset.
-- `measure_false_positive_rate(self, bf, sample_dataset)`: Measures the false positive rate for the Bloom Filter.
 - `print_results(self)`: Prints the test results.
 - `plot_results(self)`: Plots the test results.
 
