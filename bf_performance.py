@@ -138,8 +138,7 @@ class BloomFilterPerformanceTest:
             list: A list of random words not in the dataset.
 
         This method generates random words not in the given dataset. It is useful for testing, especially for
-        evaluating the Bloom Filter's false positive rate. The method uses a set for faster lookups and continues
-        generating words until the required number is reached.
+        evaluating the Bloom Filter's false positive rate.
         """
         dataset_set = set(dataset)  # Convert the dataset to a set for faster lookups
         random_words = set()
