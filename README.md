@@ -69,13 +69,10 @@ The genome sequences dataset `DNA_sequences.txt` includes 2000 records and can b
 - ["Genome Sequences Dataset."](https://github.com/MuhammadShan7/genome/blob/main/sequences.txt) GitHub, MuhammadShan7. Accessed June 21, 2024.
 
 
-## License
-
-This project is licensed under the MIT License.
 
 ## Course Information
 
-This project is a part of the course "Concept of Data Science" and demonstrates the practical application of data structures in performance testing.
+This project is a part of the course "Concept of Data Science - Distance learning" and demonstrates the practical application of data structures in implementation of the bloom filter.
 
 ---
 ## Usage
