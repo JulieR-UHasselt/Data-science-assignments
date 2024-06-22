@@ -52,10 +52,7 @@ Based on the performance test output provided in the image:
 
 Overall, the performance tests show that the Bloom Filter scales well with increasing dataset sizes, providing efficient insertion and search operations while maintaining reasonable memory usage and false positive rates.
 
-## Datasets
-
-
-## Data Reference
+## Datasets Reference
 ### Words Data Source
 
 The english words dataset `English_words.txt` contains over 479,000 English words and is sourced from the "dwyl/english-words" repository on GitHub.
