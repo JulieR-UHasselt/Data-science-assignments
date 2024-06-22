@@ -140,9 +140,9 @@ class BloomFilterPerformanceTest:
         This method generates random words not in the given dataset. It is useful for testing, especially for
         evaluating the Bloom Filter's false positive rate.
         """
-        dataset_set = set(dataset)  # Convert the dataset to a set for faster lookups
+        dataset_set = set(dataset)
         random_words = set()
-        characters = 'abcdefghijklmnopqrstuvwxyz'  # Characters to use for generating random words
+        characters = 'abcdefghijklmnopqrstuvwxyz'
 
         while len(random_words) < num_words:
             word = ''.join(random.choices(characters, k=length))  # Generate a random word
@@ -204,7 +204,6 @@ class BloomFilterPerformanceTest:
             tuple: Creation time, memory usage, and the created Bloom Filter.
 
         This method measures how long it takes to create the Bloom Filter and how much memory it uses.
-        It uses tracemalloc to track memory usage and returns the creation time, memory usage, and the Bloom Filter itself.
         """
         try:
             tracemalloc.start()  # Start tracking memory usage
