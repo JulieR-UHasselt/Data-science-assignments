@@ -6,7 +6,7 @@ The purpose of the project is to implement a bloom filter.
 
 ## Overview
 
-The purpose of this project is to implement a Bloom filter. The development of the software is managed using version control hosted on [GitHub](https://github.com/JulieR-UHasselt/Data-science-assignments). The Bloom filter is implemented using an object-oriented approach. The performance testing suite measures the Bloom Filter's performance in terms of creation time, insertion time, search time, memory usage, and false positive rate using different dataset sizes. The results are visualized in a series of plots.
+The purpose of this project is to implement a Bloom filter. The development of the Bloom filter is managed using version control hosted on [GitHub](https://github.com/JulieR-UHasselt/Data-science-assignments). The Bloom filter is implemented using an object-oriented approach. The performance testing suite measures the Bloom Filter's performance in terms of creation time, insertion time, search time, memory usage, and false positive rate using different dataset sizes. The results are visualized in a series of plots.
 
 ## Code Structure
 
