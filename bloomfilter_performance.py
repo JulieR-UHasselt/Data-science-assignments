@@ -48,16 +48,16 @@ class BloomFilterPerformanceTest:
             P (float, optional): Desired false positive rate. Default is 0.01.
 
         Returns:
-            BloomFilter: A Bloom Filter initialized with the dataset.
+            Bloom_Filter: A Bloom Filter initialized with the dataset.
         """
-        return BloomFilter(dataset, P)
+        return Bloom_Filter(dataset, P)
 
     def search_bf(self, bf, dataset):
         """
         Check all items in the dataset against the Bloom Filter.
 
         Parameters:
-            bf (BloomFilter): The Bloom Filter to search with.
+            bf (Bloom_Filter): The Bloom Filter to search with.
             dataset (list): The list of items to check.
         """
         for element in dataset:
