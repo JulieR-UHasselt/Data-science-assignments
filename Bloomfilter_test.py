@@ -1,4 +1,4 @@
-from Bloomfilter import Bloom_Filter
+from Bloomfilter import BloomFilter
 
 
 # 1. Importing datasets to create bloomfilters
@@ -12,7 +12,7 @@ urls = [
     "https://mywebsite.net",
     "http://anotherexample.com",
 ]
-url_bloom = Bloom_Filter(urls)
+url_bloom = BloomFilter(urls)
 print(url_bloom)
 
 ### 2. emails
@@ -23,7 +23,7 @@ emails = [
     "admin@website.com",
     "info@anotherexample.com",
 ]
-email_bloom = Bloom_Filter(emails)
+email_bloom = BloomFilter(emails)
 print(email_bloom)
 
 ### 3. IP addresses
@@ -34,7 +34,7 @@ ip_addresses = [
     "8.8.8.8",
     "127.0.0.1",
 ]
-IP_bloom = Bloom_Filter(ip_addresses)
+IP_bloom = BloomFilter(ip_addresses)
 print(IP_bloom)
 
 ### 4. English words
@@ -50,7 +50,7 @@ english_words = [
     "kiwi",
     "lemon",
 ]
-words_bloom = Bloom_Filter(english_words)
+words_bloom = BloomFilter(english_words)
 print(words_bloom)
 
 ### 5. DNA
@@ -61,7 +61,7 @@ dna_sequences = [
     "GCTAGCTAGC",
     "TAGCTAGCTA",
 ]
-DNA_bloom = Bloom_Filter(dna_sequences)
+DNA_bloom = BloomFilter(dna_sequences)
 print(DNA_bloom)
 
 #### Noted that all datasets are imported correctly
@@ -73,7 +73,7 @@ four_letter_words = [
     "mint", "nest", "pace", "quip", "rain", "snow", "toad", "urge", "vase", "warp",
     "arch", "bank", "dove", "flip", "gold", "hail", "jump", "leaf", "muse", "note"
 ]
-four_letter_bloom = Bloom_Filter(four_letter_words)
+four_letter_bloom = BloomFilter(four_letter_words)
 print(four_letter_bloom)
 
 
@@ -85,7 +85,7 @@ words_dataset = []
 with open("words.txt", 'r') as datafile:
     words_dataset = [line.strip() for line in datafile]
 
-wordtxt_bloom = Bloom_Filter(words_dataset)
+wordtxt_bloom = BloomFilter(words_dataset)
 print(wordtxt_bloom)
 
 ### 2. Txt file with sequences
@@ -94,7 +94,7 @@ sequences_dataset = []
 with open("sequences.txt", 'r') as datafile:
     sequences_dataset = [line.strip() for line in datafile]
 
-sequences_bloom = Bloom_Filter(sequences_dataset)
+sequences_bloom = BloomFilter(sequences_dataset)
 print(sequences_bloom)
 
 ### 3. Csv file with a 1000 English words
@@ -103,7 +103,7 @@ english_words_dataset = []
 with open("English_words.csv", 'r') as datafile:
     english_words_dataset = [line.strip() for line in datafile]
 
-english_words_bloom = Bloom_Filter(english_words_dataset)
+english_words_bloom = BloomFilter(english_words_dataset)
 print(english_words_bloom)
 
 ### Noted that all the files are read correctly

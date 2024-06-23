@@ -2,7 +2,7 @@ import math
 import hashlib
 
 
-class Bloom_Filter:
+class BloomFilter:
 
     def __init__(self, dataset, P=0.01):
         self.word_count = len(dataset) # Counter of words inserted
@@ -77,4 +77,4 @@ class Bloom_Filter:
 
 
 def create_BF_from_dataset(dataset, P=0.01):
-    return Bloom_Filter(dataset, P)
+    return BloomFilter(dataset, P)
