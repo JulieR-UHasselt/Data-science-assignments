@@ -108,4 +108,20 @@ print(english_words_bloom)
 
 ### Noted that all the files are read correctly
 
+# 2. Testing the result of the search function of the bloomfilter
 
+## True postive
+
+## False positive
+
+## False negative
+
+# four_letter_words_test = [
+#     "bark", "test", "four", "unbelivehrdafkd", "fist", "gift", "hint", "jazz", "kite", "lamp",
+#     "mint", "nest", "pace", "quip", "rain", "snow", "toad", "urge", "vase", "warp",
+#     "arch", "bank", "dove", "flip", "gold", "hail", "jump", "leaf", "muse", "note"
+# ]
+
+# for word in four_letter_words_test:
+#     result = bloom.search_bit_array(word)
+#     print(f"Word '{word}' found: {result}")
