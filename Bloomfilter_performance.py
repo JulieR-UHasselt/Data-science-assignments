@@ -10,7 +10,6 @@ from Bloomfilter import Bloom_Filter
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
 class BloomFilterPerformanceTest:
     """A class to test the performance of the Bloom Filter."""
 
@@ -34,6 +33,30 @@ class BloomFilterPerformanceTest:
         self.num_queries = num_queries
         self.results = {size: {'creation_times': [], 'insertion_times': [], 'average_search_times': [],
                                'memory_usages': [], 'false_positive_rates': []} for size in dataset_sizes}
+
+    def create_bf_from_dataset(self, dataset, P=0.01):
+        """
+        Create a Bloom Filter from the dataset.
+
+        Parameters:
+            dataset (list): The list of items to add to the Bloom Filter.
+            P (float, optional): Desired false positive rate. Default is 0.01.
+
+        Returns:
+            Bloom_Filter: A Bloom Filter initialized with the dataset.
+        """
+        return Bloom_Filter(dataset, P)
+
+    def search_bf(self, bf, dataset):
+        """
+        Check all items in the dataset against the Bloom Filter.
+
+        Parameters:
+            bf (Bloom_Filter): The Bloom Filter to search with.
+            dataset (list): The list of items to check.
+        """
+        for element in dataset:
+            bf.search_bit_array(element)  # Search each element in the Bloom Filter
 
     def generate_random_words_not_in_dataset(self, dataset, num_words, length=10):
         """
@@ -73,8 +96,7 @@ class BloomFilterPerformanceTest:
                 tracemalloc.start()  # Start measuring memory usage
 
                 bf = Bloom_Filter(sample_dataset)  # Create the Bloom Filter
-                creation_time = timeit.timeit(lambda: Bloom_Filter(
-                    sample_dataset), number=1)  # Measure creation time
+                creation_time = timeit.timeit(lambda: Bloom_Filter(sample_dataset), number=1)  # Measure creation time
 
                 current, peak = tracemalloc.get_traced_memory()  # Measure memory usage
                 tracemalloc.stop()
@@ -116,10 +138,8 @@ class BloomFilterPerformanceTest:
             creation_time = sum(self.results[size]['creation_times']) / len(self.results[size]['creation_times'])
             insertion_time = sum(self.results[size]['insertion_times']) / len(self.results[size]['insertion_times'])
             memory_usage = sum(self.results[size]['memory_usages']) / len(self.results[size]['memory_usages'])
-            average_search_time = sum(self.results[size]['average_search_times']) / \
-                len(self.results[size]['average_search_times'])
-            false_positive_rate = sum(self.results[size]['false_positive_rates']) / \
-                len(self.results[size]['false_positive_rates'])
+            average_search_time = sum(self.results[size]['average_search_times']) / len(self.results[size]['average_search_times'])
+            false_positive_rate = sum(self.results[size]['false_positive_rates']) / len(self.results[size]['false_positive_rates'])
             print(f"  Average Creation Time: {creation_time:.6f} seconds")
             print(f"  Average Insertion Time: {insertion_time:.6f} seconds")
             print(f"  Average Memory Usage: {memory_usage:.6f} MB")
@@ -135,16 +155,11 @@ class BloomFilterPerformanceTest:
         """
         sizes = self.dataset_sizes  # Dataset sizes used for the tests
 
-        avg_creation_times = [sum(self.results[size]['creation_times']) /
-                              len(self.results[size]['creation_times']) for size in sizes]
-        avg_insertion_times = [sum(self.results[size]['insertion_times']) /
-                               len(self.results[size]['insertion_times']) for size in sizes]
-        avg_memory_usages = [sum(self.results[size]['memory_usages']) /
-                             len(self.results[size]['memory_usages']) for size in sizes]
-        avg_search_times = [sum(self.results[size]['average_search_times']) /
-                            len(self.results[size]['average_search_times']) for size in sizes]
-        avg_false_positive_rates = [sum(self.results[size]['false_positive_rates']) /
-                                    len(self.results[size]['false_positive_rates']) for size in sizes]
+        avg_creation_times = [sum(self.results[size]['creation_times']) / len(self.results[size]['creation_times']) for size in sizes]
+        avg_insertion_times = [sum(self.results[size]['insertion_times']) / len(self.results[size]['insertion_times']) for size in sizes]
+        avg_memory_usages = [sum(self.results[size]['memory_usages']) / len(self.results[size]['memory_usages']) for size in sizes]
+        avg_search_times = [sum(self.results[size]['average_search_times']) / len(self.results[size]['average_search_times']) for size in sizes]
+        avg_false_positive_rates = [sum(self.results[size]['false_positive_rates']) / len(self.results[size]['false_positive_rates']) for size in sizes]
 
         plt.figure(figsize=(14, 10))
 
@@ -181,7 +196,6 @@ class BloomFilterPerformanceTest:
         plt.tight_layout()
         plt.show()
 
-
 def load_dataset(file_path):
     """
     Load the dataset from the specified file.
@@ -207,7 +221,6 @@ def load_dataset(file_path):
         print(f'Error: {e}')
         sys.exit(1)
     return dataset
-
 
 def main():
     """
@@ -240,7 +253,6 @@ def main():
 
     # Plot the results
     performance_test.plot_results()
-
 
 if __name__ == "__main__":
     main()
