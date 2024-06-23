@@ -198,7 +198,7 @@ def load_dataset(file_path):
         sys.exit(1)
     return dataset
 
-def main():
+if __name__ == "__main__":
     """
     Main function to run the Bloom Filter performance tests.
     """
@@ -229,6 +229,3 @@ def main():
 
     # Plot the results
     performance_test.plot_results()
-
-if __name__ == "__main__":
-    main()
