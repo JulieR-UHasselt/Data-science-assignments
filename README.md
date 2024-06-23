@@ -86,10 +86,12 @@ To run the performance test, use the following command:
         ```
 
 2. **Run the Performance Test**
+
         ```bash
         python3 <Python_file> <datafile_path>.
         ```
-### Example
+3. **Example:**
+
         ```bash
         python3 Bloomfilter_performance.py DNA_sequences.txt
         ```
