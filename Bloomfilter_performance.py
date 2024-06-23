@@ -1,15 +1,10 @@
-import math
-import hashlib
 import tracemalloc
 import matplotlib.pyplot as plt
 import random
 import timeit
 import sys
 import logging
-import concurrent.futures
-import argparse  # Import argparse to handle command-line arguments
 from Bloomfilter import Bloom_Filter
-
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -113,11 +108,10 @@ class BloomFilterPerformanceTest:
                 self.results[size]['memory_usages'].append(memory_usage)
 
                 insertion_time = timeit.timeit(lambda: [bf.insert_into_bit_array(element)
-                                                        for element in sample_dataset], number=1)
+                                               for element in sample_dataset], number=1)
                 self.results[size]['insertion_times'].append(insertion_time)
 
-                search_time = timeit.timeit(lambda: self.search_bf(bf, sample_dataset),
-                                            number=1)  # Measure search time
+                search_time = timeit.timeit(lambda: self.search_bf(bf, sample_dataset), number=1)  # Measure search time
                 average_search_time = search_time / len(sample_dataset)  # Calculate average search time per item
                 self.results[size]['average_search_times'].append(average_search_time)
 
@@ -162,68 +156,50 @@ class BloomFilterPerformanceTest:
         """
         sizes = self.dataset_sizes  # Dataset sizes used for the tests
 
-        # Calculate average creation times for each dataset size
         avg_creation_times = [sum(self.results[size]['creation_times']) /
                               len(self.results[size]['creation_times']) for size in sizes]
-
-        # Calculate average insertion times for each dataset size
         avg_insertion_times = [sum(self.results[size]['insertion_times']) /
                                len(self.results[size]['insertion_times']) for size in sizes]
-
-        # Calculate average memory usages for each dataset size
         avg_memory_usages = [sum(self.results[size]['memory_usages']) /
                              len(self.results[size]['memory_usages']) for size in sizes]
-
-        # Calculate average search times for each dataset size
         avg_search_times = [sum(self.results[size]['average_search_times']) /
                             len(self.results[size]['average_search_times']) for size in sizes]
-
-        # Calculate average false positive rates for each dataset size
         avg_false_positive_rates = [sum(self.results[size]['false_positive_rates']) /
                                     len(self.results[size]['false_positive_rates']) for size in sizes]
 
-        # Create a figure with a specified size
         plt.figure(figsize=(14, 10))
 
-        # Plot for creation time
         plt.subplot(2, 3, 1)
         plt.plot(sizes, avg_creation_times, marker='o', linestyle='-', color='b')
         plt.xlabel('Dataset Size')
         plt.ylabel('Creation Time (s)')
         plt.title('Bloom Filter Creation Time')
 
-        # Plot for insertion time
         plt.subplot(2, 3, 2)
         plt.plot(sizes, avg_insertion_times, marker='o', linestyle='-', color='c')
         plt.xlabel('Dataset Size')
         plt.ylabel('Insertion Time (s)')
         plt.title('Bloom Filter Insertion Time')
 
-        # Plot for memory usage
         plt.subplot(2, 3, 3)
         plt.plot(sizes, avg_memory_usages, marker='o', linestyle='-', color='r')
         plt.xlabel('Dataset Size')
         plt.ylabel('Memory Usage (MB)')
         plt.title('Memory Usage')
 
-        # Plot for average search time
         plt.subplot(2, 3, 4)
         plt.plot(sizes, avg_search_times, marker='o', linestyle='-', color='g')
         plt.xlabel('Dataset Size')
         plt.ylabel('Average Search Time (s)')
         plt.title('Average Search Time')
 
-        # Plot for false positive rate
         plt.subplot(2, 3, 5)
         plt.plot(sizes, avg_false_positive_rates, marker='o', linestyle='-', color='m')
         plt.xlabel('Dataset Size')
         plt.ylabel('False Positive Rate')
         plt.title('False Positive Rate')
 
-        # Adjust layout to prevent overlap
         plt.tight_layout()
-
-        # Display the plots
         plt.show()
 
 
@@ -258,15 +234,16 @@ def main():
     """
     Main function to run the Bloom Filter performance tests.
     """
-    # Set up argument parsing
-    parser = argparse.ArgumentParser(description="Bloom Filter Performance Test")
-    parser.add_argument("dataset_file", type=str, help="Path to the dataset file")
+    # Check for correct number of arguments
+    if len(sys.argv) != 2:
+        print("Usage: python Bloomfilter_performance.py <datafile_path>")
+        sys.exit(1)
 
-    # Parse the arguments
-    args = parser.parse_args()
+    # Get the dataset file path from command-line arguments
+    dataset_filename = sys.argv[1]
 
     # Load the dataset from the specified file
-    dataset = load_dataset(args.dataset_file)
+    dataset = load_dataset(dataset_filename)
 
     # Define dataset sizes as percentages of the actual dataset size, testing the Bloom Filter with increasing data size.
     actual_dataset_size = len(dataset)
