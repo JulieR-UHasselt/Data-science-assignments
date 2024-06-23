@@ -75,6 +75,7 @@ This project is a part of the course "Concept of Data Science - Distance learnin
 ## Usage
 
 To run the performance test, use the following command:
+Navigate to the Correct Directory
 
 ```bash
 python3 <Python_file> <datafile_path>.
