@@ -7,76 +7,12 @@ import timeit
 import sys
 import logging
 import concurrent.futures
+from Bloomfilter import Bloom_Filter
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-
-class BloomFilter:
-    """A Bloom Filter to check if an item might be in a set."""
-
-    def __init__(self, dataset, P=0.01):
-        """
-        Initialize the Bloom Filter with items.
-
-        Parameters:
-            dataset (list): Items to add to the Bloom Filter.
-            P (float): Desired false positive rate, default is 0.01.
-        """
-        self.word_count = len(dataset)
-        self.P = P
-        self._calculate_parameters()
-        self.bit_array = [0] * self.m
-
-        # Use ThreadPoolExecutor to parallelize the insertion of elements into the Bloom Filter.
-        # This can significantly speed up the initialization for large datasets by utilizing multiple CPU cores.
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            executor.map(self.insert_into_bit_array, dataset)
-
-    def _calculate_parameters(self):
-        """
-        Calculate the size of bit array (m) & number of hash functions (k)
-        based on the expected number of elements in the dataset (word_count) and
-        the desired probability of false positives (P).
-        """
-        m_float = - (self.word_count * math.log(self.P)) / (math.log(2) ** 2)
-        k_float = (m_float / self.word_count) * math.log(2)
-        self.m = int(m_float) + 1 if m_float > int(m_float) else int(m_float)
-        self.k = int(k_float) + 1 if k_float > int(k_float) else int(k_float)
-
-    def insert_into_bit_array(self, element):
-        """
-        Add an item to the Bloom Filter by setting bits at k positions
-        determined by hashing the item k times.
-
-        Parameters:
-            element (str): The item to add.
-        """
-        for i in range(self.k):
-            digest = hashlib.sha1(
-                (str(element) + str(i)).encode('utf-8')).hexdigest()
-            index = int(digest, 16) % self.m
-            self.bit_array[index] = 1
-
-    def search_bit_array(self, element):
-        """
-        Check if an item might be in the Bloom Filter by verifying that
-        all k bits corresponding to the k hashes of the item are set.
-
-        Parameters:
-            element (str): The item to check.
-
-        Returns:
-            bool: True if the item might be in the set, False if it is definitely not.
-        """
-        for i in range(self.k):
-            digest = hashlib.sha1(
-                (str(element) + str(i)).encode('utf-8')).hexdigest()
-            index = int(digest, 16) % self.m
-            if self.bit_array[index] == 0:
-                return False
-        return True
 
 
 class BloomFilterPerformanceTest:
@@ -110,7 +46,7 @@ class BloomFilterPerformanceTest:
         Returns:
             BloomFilter: A Bloom Filter initialized with the dataset.
         """
-        return BloomFilter(dataset, P)
+        return Bloom_Filter(dataset, P)
 
     def search_bf(self, bf, dataset):
         """
