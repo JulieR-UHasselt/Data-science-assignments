@@ -20,13 +20,21 @@ The `BloomFilter` class implements a Bloom Filter to check if an item might be i
 - `search_bf(self, bf, dataset)`: Checks all items in the dataset against the Bloom Filter.
 - `search_bit_array(self, element)`: Checks if an item might be in the Bloom Filter.
 
-### BloomFilterPerformanceTest Class
+## BloomFilterPerformanceTest Class
 
-The `BloomFilterPerformanceTest` class tests the performance of the Bloom Filter. It includes the following methods:
+The `BloomFilterPerformanceTest` class is designed to test the performance of a Bloom Filter. Below are the main methods:
 
-- `__init__(self, dataset, dataset_sizes, num_runs=10, num_queries=1000)`: Sets up the performance test with the dataset, sizes to test, number of runs, and number of queries.
-- `create_bf_from_dataset(self, dataset, P=0.01)`: Creates a Bloom Filter from the dataset.
-- `generate_random_words_not_in_dataset(self, dataset, num_words, length=10)`: Generates random words not present in the dataset.
+- **`__init__(self, dataset, dataset_sizes, num_runs=10, num_queries=1000)`**: Initializes the performance test with the dataset, sizes to test, number of runs, and number of queries.
+
+- **`create_bf_from_dataset(self, dataset, P=0.01)`**: Creates a Bloom Filter from the dataset.
+
+- **`generate_random_words_not_in_dataset(self, dataset, num_words, length=10)`**: Generates random words not present in the dataset.
+
+- **`run_tests(self)`**: Runs the performance tests, measuring creation time, insertion time, search time, memory usage, and false positive rate.
+
+- **`print_results(self)`**: Prints the test results.
+
+- **`plot_results(self)`**: Plots the test results.
 
 ## Performance Testing
 
