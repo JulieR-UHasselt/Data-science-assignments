@@ -1,4 +1,4 @@
-from Hash_functions import create_BF_from_dataset
+from Bloomfilter import create_BF_from_dataset
 
 
 
