@@ -28,7 +28,7 @@ The `BloomFilterPerformanceTest` class is designed to test the performance of a 
 
 - `create_bf_from_dataset(self, dataset, P=0.01)`: Creates a Bloom Filter from the dataset.
 
-- **`generate_random_words_not_in_dataset(self, dataset, num_words, length=10)`: Generates random words not present in the dataset.
+- `generate_random_words_not_in_dataset(self, dataset, num_words, length=10)`: Generates random words not present in the dataset.
 
 - `run_tests(self)`: Runs the performance tests, measuring creation time, insertion time, search time, memory usage, and false positive rate.
 
