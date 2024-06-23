@@ -1,6 +1,5 @@
 import math
 import hashlib
-import sys
 
 
 class Bloom_Filter:
@@ -28,7 +27,7 @@ class Bloom_Filter:
         m = - (n * log(P)) / (log(2)^2)
         k = (m / n) * log(2)
         """
-        m_float = - (self.word_count * math.log(P)) / (math.log(2) ** 2)
+        m_float = - (self.word_count * math.log(self.P)) / (math.log(2) ** 2)
         k_float = (m_float / self.word_count) * math.log(2)
 
         # Convert m_float to an integer, rounding up if needed
@@ -73,27 +72,3 @@ class Bloom_Filter:
 
 def create_BF_from_dataset(dataset, P=0.01):
     return Bloom_Filter(dataset, P)
-
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python Hash_function.py <datafile_path>")
-        sys.exit(1)
-
-    dataset_filename = sys.argv[1]
-    P = 0.01
-
-    dataset= []
-    datafile = open(dataset_filename, 'r')
-    for data_item in datafile.readlines():
-        if data_item[-1] == "\n":
-
-
-    Bloom_Filter.setup_counter(dataset)
-    for element in dataset:
-        Bloom_Filter.insert_into_bit_array(element)
-        Bloom_Filter.search_bit_array(element)
-
-    # Print the calculated values
-    print(f"{dataset} Dataset: Number of elements(n)={Bloom_Filter.n}, Bit array size(m)={Bloom_Filter.m}, "
-        f"Number of hash functions(k)={Bloom_Filter.k}, Desired false positive probability(P)={P}")
