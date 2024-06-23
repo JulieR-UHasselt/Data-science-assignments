@@ -78,7 +78,7 @@ print(four_letter_bloom)
 ### 1. Txt file with words
 
 words_dataset = []
-with open("words.txt", 'r') as datafile:
+with open("English_words.txt", 'r') as datafile:
     words_dataset = [line.strip() for line in datafile]
 
 wordtxt_bloom = BloomFilter(words_dataset, P=0.1) #note that we change the P value to performance false negative testing
