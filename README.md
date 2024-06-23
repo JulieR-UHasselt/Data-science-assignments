@@ -75,7 +75,18 @@ This project is a part of the course "Concept of Data Science - Distance learnin
 ## Usage
 
 To run the performance test, use the following command:
-Navigate to the Correct Directory
+1. **Navigate to the Correct Directory**
+   - In your terminal, use the `cd` command to navigate to the directory containing your `Bloomfilter_performance.py` script.
 
+     ```bash
+     cd /path/to/your/project/directory
+     ```
+
+2. **Run the Performance Test**:
 ```bash
 python3 <Python_file> <datafile_path>.
+```
+### Example
+```bash
+python3 Bloomfilter_performance.py DNA_sequences.txt
+```
