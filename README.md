@@ -99,6 +99,7 @@ To run the performance test, use the following command:
         python3 <Python_file> <datafile_path>
         ```
 
+
 ## Course Information
 
 This project is a part of the course "Concept of Data Science - Distance learning" and demonstrates the practical application of data structures in implementation of the bloom filter.
