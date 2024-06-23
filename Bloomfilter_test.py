@@ -64,9 +64,6 @@ dna_sequences = [
 DNA_bloom = BloomFilter(dna_sequences)
 print(DNA_bloom)
 
-#### Noted that all datasets are imported correctly
-
-
 ## Importing data with words of a short length
 four_letter_words = [
     "bark", "clap", "dear", "echo", "fist", "gift", "hint", "jazz", "kite", "lamp",
@@ -75,6 +72,8 @@ four_letter_words = [
 ]
 four_letter_bloom = BloomFilter(four_letter_words)
 print(four_letter_bloom)
+
+#### Noted that all datasets are imported correctly
 
 
 ## Importing files with a lot of data from different file types
@@ -112,16 +111,40 @@ print(english_words_bloom)
 
 ## True postive
 
+dna_sequences_test = [
+    "AGCTTAGCTA",
+    "CGTAGCTAGC",
+    "TGCATGCACT",
+    "GCTAGCTAGC"]
+
+for word in dna_sequences_test:
+    result = DNA_bloom.search_bit_array(word)
+    print(f"Word '{word}' found: {result}")
+
+    
+
 ## False positive
 
-## False negative
 
-# four_letter_words_test = [
-#     "bark", "test", "four", "unbelivehrdafkd", "fist", "gift", "hint", "jazz", "kite", "lamp",
-#     "mint", "nest", "pace", "quip", "rain", "snow", "toad", "urge", "vase", "warp",
-#     "arch", "bank", "dove", "flip", "gold", "hail", "jump", "leaf", "muse", "note"
-# ]
+## True negative
 
-# for word in four_letter_words_test:
-#     result = bloom.search_bit_array(word)
-#     print(f"Word '{word}' found: {result}")
+four_letter_words_test = [
+    "bark", "test", "four", "unbelivehrdafkd", "fist", "gift", "hint", "jazz", "kite", "lamp",
+    "mint", "nest", "pace", "quip", "rain", "snow", "toad", "urge", "vase", "warp",
+    "arch", "bank", "dove", "flip", "gold", "hail", "jump", "leaf", "muse", "note"
+]
+
+for word in four_letter_words_test:
+    result = four_letter_bloom.search_bit_array(word)
+    print(f"Word '{word}' found: {result}")
+
+English_test = ["agony", "bread", "dad"]
+
+for word in English_test:
+    result = english_words_bloom.search_bit_array(word)
+    print(f"Word '{word}' found: {result}")
+
+### Noted that all the words were correctly identified 
+# as not in the four letter words bloom filter or the English test bloom filter.
+
+## As expected, we did not find any false negatives in our testing.
