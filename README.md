@@ -66,12 +66,15 @@ The genome sequences dataset `DNA_sequences.txt` includes 2000 records and can b
 - ["Genome Sequences Dataset."](https://github.com/MuhammadShan7/genome/blob/main/sequences.txt) GitHub, MuhammadShan7. Accessed June 21, 2024.
 
 
+## Dataset File Formatting Guidelines
 
-## Course Information
+The dataset files to run with this code should follow:
 
-This project is a part of the course "Concept of Data Science - Distance learning" and demonstrates the practical application of data structures in implementation of the bloom filter.
+### General Guidelines:
 
----
+- Each line should contain a single string of words or DNA sequences.
+- Ensure there are no additional columns, white spaces, or special characters in the file.
+
 ## Usage
 
 To run the performance test, use the following command:
@@ -90,3 +93,6 @@ python3 <Python_file> <datafile_path>.
 ```bash
 python3 Bloomfilter_performance.py DNA_sequences.txt
 ```
+## Course Information
+
+This project is a part of the course "Concept of Data Science - Distance learning" and demonstrates the practical application of data structures in implementation of the bloom filter.
