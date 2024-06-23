@@ -4,7 +4,7 @@ import random
 import timeit
 import sys
 import logging
-from Bloomfilter import BloomFilter
+from Bloomfilter import create_BF_from_dataset, BloomFilter
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -34,6 +34,17 @@ class BloomFilterPerformanceTest:
         self.num_queries = num_queries
         self.results = {size: {'creation_times': [], 'insertion_times': [], 'average_search_times': [],
                                'memory_usages': [], 'false_positive_rates': []} for size in dataset_sizes}
+
+    def search_bf(self, bf, dataset):
+        """
+        Check all items in the dataset against the Bloom Filter.
+
+        Parameters:
+            bf (BloomFilter): The Bloom Filter to search with.
+            dataset (list): The list of items to check.
+        """
+        for element in dataset:
+            bf.search_bit_array(element)  # Search each element in the Bloom Filter
 
     def generate_random_words_not_in_dataset(self, dataset, num_words, length=10):
         """
@@ -72,8 +83,8 @@ class BloomFilterPerformanceTest:
             for _ in range(self.num_runs):
                 tracemalloc.start()  # Start measuring memory usage
 
-                bf = self.create_bf_from_dataset(sample_dataset)  # Create the Bloom Filter
-                creation_time = timeit.timeit(lambda: self.create_bf_from_dataset(
+                bf = create_BF_from_dataset(sample_dataset)  # Create the Bloom Filter
+                creation_time = timeit.timeit(lambda: create_BF_from_dataset(
                     sample_dataset), number=1)  # Measure creation time
 
                 current, peak = tracemalloc.get_traced_memory()  # Measure memory usage
@@ -83,8 +94,7 @@ class BloomFilterPerformanceTest:
                 self.results[size]['creation_times'].append(creation_time)
                 self.results[size]['memory_usages'].append(memory_usage)
 
-                insertion_time = timeit.timeit(lambda: [bf.insert_into_bit_array(element)
-                                               for element in sample_dataset], number=1)
+                insertion_time = timeit.timeit(lambda: [bf.add(item) for item in sample_dataset], number=1)
                 self.results[size]['insertion_times'].append(insertion_time)
 
                 search_time = timeit.timeit(lambda: self.search_bf(bf, sample_dataset), number=1)  # Measure search time
@@ -206,7 +216,7 @@ def load_dataset(file_path):
     return dataset
 
 
-if __name__ == "__main__":
+def main():
     """
     Main function to run the Bloom Filter performance tests.
     """
@@ -237,3 +247,7 @@ if __name__ == "__main__":
 
     # Plot the results
     performance_test.plot_results()
+
+
+if __name__ == "__main__":
+    main()
