@@ -4,7 +4,7 @@ import random
 import timeit
 import sys
 import logging
-from Bloomfilter import Bloom_Filter
+from Bloomfilter import BloomFilter
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -204,6 +204,7 @@ def load_dataset(file_path):
         print(f'Error: {e}')
         sys.exit(1)
     return dataset
+
 
 if __name__ == "__main__":
     """
