@@ -77,7 +77,7 @@ To run the performance test, use the following command:
 3. **Example:**
 
      ```bash
-     python3 <Python_file> <datafile_path>
+     python3 Bloomfilter_performance.py DNA_sequences.txt
      ```
 
 ## Course Information
