@@ -72,7 +72,7 @@ class Bloom_Filter:
         return f"Bloom_Filter(size={len(self.bit_array)}, P={self.P}, dataset_size={len(self.dataset)})"
 
     def __str__(self):
-        return f"Bloom Filter with {self.word_count} items and false positive rate {self.word_count}"
+        return f"Bloom Filter with {self.word_count} items and false positive rate {self.P}"
 
 
 def create_BF_from_dataset(dataset, P=0.01):
