@@ -1,8 +1,10 @@
-from Bloomfilter import create_BF_from_dataset
+from Bloomfilter import Bloom_Filter
 
 
+# 1. Importing datasets to create bloomfilters
+## Importing different types of data
 
-# Example datasets
+### 1. URLs
 urls = [
     "http://example.com",
     "https://example.org",
@@ -10,11 +12,10 @@ urls = [
     "https://mywebsite.net",
     "http://anotherexample.com",
 ]
-
-url_bloom = create_BF_from_dataset(urls, P=0.05)
+url_bloom = Bloom_Filter(urls)
 print(url_bloom)
 
-
+### 2. emails
 emails = [
     "example1@example.com",
     "user2@test.org",
@@ -22,10 +23,10 @@ emails = [
     "admin@website.com",
     "info@anotherexample.com",
 ]
+email_bloom = Bloom_Filter(emails)
+print(email_bloom)
 
-# emails_bloom = create_BF_from_dataset(urls, 0.01)
-
-
+### 3. IP addresses
 ip_addresses = [
     "192.168.0.1",
     "10.0.0.2",
@@ -33,7 +34,10 @@ ip_addresses = [
     "8.8.8.8",
     "127.0.0.1",
 ]
+IP_bloom = Bloom_Filter(ip_addresses)
+print(IP_bloom)
 
+### 4. English words
 english_words = [
     "apple",
     "banana",
@@ -46,7 +50,10 @@ english_words = [
     "kiwi",
     "lemon",
 ]
+words_bloom = Bloom_Filter(english_words)
+print(words_bloom)
 
+### 5. DNA
 dna_sequences = [
     "AGCTTAGCTA",
     "CGTAGCTAGC",
@@ -54,4 +61,30 @@ dna_sequences = [
     "GCTAGCTAGC",
     "TAGCTAGCTA",
 ]
+DNA_bloom = Bloom_Filter(dna_sequences)
+print(DNA_bloom)
+
+#### Noted that all datasets are imported correctly
+
+
+## Importing data with words of a short length
+four_letter_words = [
+    "bark", "clap", "dear", "echo", "fist", "gift", "hint", "jazz", "kite", "lamp",
+    "mint", "nest", "pace", "quip", "rain", "snow", "toad", "urge", "vase", "warp",
+    "arch", "bank", "dove", "flip", "gold", "hail", "jump", "leaf", "muse", "note"
+]
+four_letter_bloom = Bloom_Filter(four_letter_words)
+print(four_letter_bloom)
+
+
+## Importing files with a lot of data from different file types
+
+### 1. Txt file with words
+
+words_dataset = []
+with open("words.txt", 'r') as datafile:
+    words_dataset = [line.strip() for line in datafile]
+
+wordtxt_bloom = Bloom_Filter(words_dataset)
+
 
