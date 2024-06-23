@@ -38,56 +38,6 @@ class Bloom_Filter:
         return self.m, self.k
     
 
-    # # Function to Create Hash Functions
-    # def create_hash_functions(self, k):
-    #     """
-    #     Create k hash functions each with random seeds.
-
-    #     Parameters:
-    #     k (int): Number of hash functions to create.
-
-    #     Returns:
-    #     tuple: List of hash functions and their corresponding seeds.
-    #     """
-    #     # Generate k random seeds
-    #     self.random_seeds = [random.randint(0, 1000000) for i in range(k)]
-
-    #     # Define a function that creates a hash function using a seed
-    #     def create_hash_function_with_seed(seed):
-    #         """
-    #         Create a hash function using the provided seed.
-
-    #         Parameters:
-    #         seed (int): The seed used to create the hash function.
-
-    #         Returns:
-    #         function: A hash function that hashes an item with the given seed.
-    #         """
-    #         def hash_fn(item):
-    #             # Convert the item to a string and concatenate with the seed
-    #             return hash(str(item) + str(seed))
-    #         return hash_fn
-
-    #     # Create k hash functions using the random seeds
-    #     self.hash_function = [create_hash_function_with_seed(seed) for seed in self.random_seeds]
-
-    #     return self.hash_functions, self.random_seeds
-
-    #     # 7: Print the hash functions and their corresponding seeds (this can be removed too)
-
-    #     # Print a header to indicate that we are showing the hash functions and their seeds
-    #     print(f"\nHash functions for {dataset_name} with seeds:")
-
-    #     # Loop through the range of the number of hash functions
-    #     for index in range(len(hash_functions)):
-    #         # Get the hash function and seed at the current index
-    #         hash_fn = hash_functions[index]
-    #         seed = seeds[index]
-
-    #         # Print the hash function number and its seed
-    #         print(f"Hash function {i}: Seed = {seed}")
-    
-
     # Function to Add Elements to the Bloom Filter
     def insert_into_bit_array(self, element):
         """
