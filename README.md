@@ -2,11 +2,25 @@
 
 This project is a part of the course "Concept of Data Science - Distance learning" and demonstrates the practical application of data structures in the implementation of the bloom filter. This github repository is used by Julie Robbrecht and Shadi Hamdan.
 
+We have created different python files for each section:
+- Bloomfilter (the bloom filter itself)
+- Bloomfilter_test (testing file)
+- Bloomfilter_performance (performance file)
+
+Next to that, we also combined all of this together in a notebook (Bloomfilter_all). The other files that are added are input files for testing purposes and one output file (bf_performance_sequences).
+
+
 # Bloom Filter Testing
 
-We performed different types of test. First we inserted different types of data in lists. Next, we inserted large datasets in different file types. Both got inserted in the bloom filters without any issues.
+## Overview
 
-Next we performed different search tests. We noted that there were false positives as expected (when increase the appetite for false positives with the P value), but we did not find any false negatives in extensive testing.
+We performed different types of test. First we inserted different types of data in lists. Next, we inserted large datasets in different file types. Next we performed different search tests. 
+
+## Result
+
+We noted that all types of data and all datasets got inserted in the bloom filters without any issues.
+
+We noted that there were false positives as expected (when increase the appetite for false positives with the P value), but we did not find any false negatives in extensive testing.
 
 
 # Bloom Filter Performance Testing
