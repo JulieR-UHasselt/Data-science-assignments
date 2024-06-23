@@ -4,7 +4,7 @@ import random
 import timeit
 import sys
 import logging
-from Bloomfilter import Bloom_Filter
+from Bloomfilter import BloomFilter
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -72,8 +72,8 @@ class BloomFilterPerformanceTest:
             for _ in range(self.num_runs):
                 tracemalloc.start()  # Start measuring memory usage
 
-                bf = self.create_bf_from_dataset(sample_dataset)  # Create the Bloom Filter
-                creation_time = timeit.timeit(lambda: self.create_bf_from_dataset(sample_dataset), number=1)  # Measure creation time
+                bf = BloomFilter(sample_dataset)  # Create the Bloom Filter
+                creation_time = timeit.timeit(lambda: BloomFilter(sample_dataset), number=1)  # Measure creation time
 
                 current, peak = tracemalloc.get_traced_memory()  # Measure memory usage
                 tracemalloc.stop()
