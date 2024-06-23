@@ -228,7 +228,7 @@ class BloomFilterPerformanceTest:
 
 # Load the dataset directly within the notebook
 # Replace the path below with the correct path to your dataset file
-dataset_filename = '/Users/shadihamdan/Desktop/Desktop_shadi’s_MacBook_Pro/Master_of_Statistics23_24/Concept_of_Data_Science/Project/sequences.txt'
+dataset_filename = '/Users/shadihamdan/Desktop/Desktop_shadi’s_MacBook_Pro/Master_of_Statistics23_24/Concept_of_Data_Science/Project/DNA_sequences.txt'
 
 dataset = []
 try:
