@@ -81,20 +81,23 @@ To run the performance test, use the following command:
 1. **Navigate to the Correct Directory**
    - In your terminal, use the `cd` command to navigate to the directory containing your `Bloomfilter_performance.py` script.
 
-        ```bash
+
         cd /path/to/your/project/directory
         ```
 
 
 2. **Run the Performance Test**
 
-python3 <Python_file> <datafile_path>
+        ```bash
+        python3 <Python_file> <datafile_path>
+        ```
 
 
 3. **Example:**
 
-python3 <Python_file> <datafile_path>
-
+        ```bash
+        python3 <Python_file> <datafile_path>
+        ```
 
 ## Course Information
 
