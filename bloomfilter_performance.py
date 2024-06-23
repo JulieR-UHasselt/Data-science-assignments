@@ -7,6 +7,7 @@ import timeit
 import sys
 import logging
 import concurrent.futures
+import argparse  # Import argparse to handle command-line arguments
 from Bloomfilter import Bloom_Filter
 
 
@@ -226,36 +227,64 @@ class BloomFilterPerformanceTest:
         plt.show()
 
 
-# Load the dataset directly within the notebook
-# Replace the path below with the correct path to your dataset file
-dataset_filename = '/Users/shadihamdan/Desktop/Desktop_shadi’s_MacBook_Pro/Master_of_Statistics23_24/Concept_of_Data_Science/Project/DNA_sequences.txt'
+def load_dataset(file_path):
+    """
+    Load the dataset from the specified file.
 
-dataset = []
-try:
-    # Read the dataset file
-    with open(dataset_filename, 'r', encoding='latin1') as datafile:
-        dataset = [line.strip() for line in datafile.readlines() if line.strip()]  # Remove empty lines
-        if not dataset:
-            raise ValueError("The dataset is empty.")
-        print(f'Successfully read {len(dataset)} lines from the file.')
-except FileNotFoundError:
-    print(f'Error: File not found: {dataset_filename}')
-except Exception as e:
-    print(f'Error: {e}')
+    Parameters:
+        file_path (str): The path to the dataset file.
 
-# Define dataset sizes as percentages of the actual dataset size, testing the Bloom Filter with increasing data size.
-actual_dataset_size = len(dataset)
-dataset_percentages = [0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1.0]
-dataset_sizes = [int(actual_dataset_size * percentage) for percentage in dataset_percentages]
+    Returns:
+        list: The dataset loaded from the file.
+    """
+    dataset = []
+    try:
+        # Read the dataset file
+        with open(file_path, 'r', encoding='latin1') as datafile:
+            dataset = [line.strip() for line in datafile.readlines() if line.strip()]  # Remove empty lines
+            if not dataset:
+                raise ValueError("The dataset is empty.")
+            print(f'Successfully read {len(dataset)} lines from the file.')
+    except FileNotFoundError:
+        print(f'Error: File not found: {file_path}')
+        sys.exit(1)
+    except Exception as e:
+        print(f'Error: {e}')
+        sys.exit(1)
+    return dataset
 
-# Create a performance test instance
-performance_test = BloomFilterPerformanceTest(dataset, dataset_sizes)
 
-# Run the performance tests
-performance_test.run_tests()
+def main():
+    """
+    Main function to run the Bloom Filter performance tests.
+    """
+    # Set up argument parsing
+    parser = argparse.ArgumentParser(description="Bloom Filter Performance Test")
+    parser.add_argument("dataset_file", type=str, help="Path to the dataset file")
 
-# Print the results
-performance_test.print_results()
+    # Parse the arguments
+    args = parser.parse_args()
 
-# Plot the results
-performance_test.plot_results()
+    # Load the dataset from the specified file
+    dataset = load_dataset(args.dataset_file)
+
+    # Define dataset sizes as percentages of the actual dataset size, testing the Bloom Filter with increasing data size.
+    actual_dataset_size = len(dataset)
+    dataset_percentages = [0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1.0]
+    dataset_sizes = [int(actual_dataset_size * percentage) for percentage in dataset_percentages]
+
+    # Create a performance test instance
+    performance_test = BloomFilterPerformanceTest(dataset, dataset_sizes)
+
+    # Run the performance tests
+    performance_test.run_tests()
+
+    # Print the results
+    performance_test.print_results()
+
+    # Plot the results
+    performance_test.plot_results()
+
+
+if __name__ == "__main__":
+    main()
