@@ -86,6 +86,7 @@ with open("words.txt", 'r') as datafile:
     words_dataset = [line.strip() for line in datafile]
 
 wordtxt_bloom = Bloom_Filter(words_dataset)
+print(wordtxt_bloom)
 
 ### 2. Txt file with sequences
 
@@ -94,6 +95,7 @@ with open("sequences.txt", 'r') as datafile:
     sequences_dataset = [line.strip() for line in datafile]
 
 sequences_bloom = Bloom_Filter(sequences_dataset)
+print(sequences_bloom)
 
 ### 3. Csv file with a 1000 English words
 
@@ -102,4 +104,8 @@ with open("English_words.csv", 'r') as datafile:
     english_words_dataset = [line.strip() for line in datafile]
 
 english_words_bloom = Bloom_Filter(english_words_dataset)
+print(english_words_bloom)
+
+### Noted that all the files are read correctly
+
 
