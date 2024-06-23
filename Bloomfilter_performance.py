@@ -35,30 +35,6 @@ class BloomFilterPerformanceTest:
         self.results = {size: {'creation_times': [], 'insertion_times': [], 'average_search_times': [],
                                'memory_usages': [], 'false_positive_rates': []} for size in dataset_sizes}
 
-    def create_bf_from_dataset(self, dataset, P=0.01):
-        """
-        Create a Bloom Filter from the dataset.
-
-        Parameters:
-            dataset (list): The list of items to add to the Bloom Filter.
-            P (float, optional): Desired false positive rate. Default is 0.01.
-
-        Returns:
-            Bloom_Filter: A Bloom Filter initialized with the dataset.
-        """
-        return Bloom_Filter(dataset, P)
-
-    def search_bf(self, bf, dataset):
-        """
-        Check all items in the dataset against the Bloom Filter.
-
-        Parameters:
-            bf (Bloom_Filter): The Bloom Filter to search with.
-            dataset (list): The list of items to check.
-        """
-        for element in dataset:
-            bf.search_bit_array(element)  # Search each element in the Bloom Filter
-
     def generate_random_words_not_in_dataset(self, dataset, num_words, length=10):
         """
         Create a list of random words not in the dataset.
@@ -97,8 +73,7 @@ class BloomFilterPerformanceTest:
                 tracemalloc.start()  # Start measuring memory usage
 
                 bf = self.create_bf_from_dataset(sample_dataset)  # Create the Bloom Filter
-                creation_time = timeit.timeit(lambda: self.create_bf_from_dataset(
-                    sample_dataset), number=1)  # Measure creation time
+                creation_time = timeit.timeit(lambda: self.create_bf_from_dataset(sample_dataset), number=1)  # Measure creation time
 
                 current, peak = tracemalloc.get_traced_memory()  # Measure memory usage
                 tracemalloc.stop()
@@ -107,13 +82,15 @@ class BloomFilterPerformanceTest:
                 self.results[size]['creation_times'].append(creation_time)
                 self.results[size]['memory_usages'].append(memory_usage)
 
-                insertion_time = timeit.timeit(lambda: [bf.add(item) for item in sample_dataset], number=1)
+                insertion_time = timeit.timeit(lambda: [bf.add(element) for element in sample_dataset], number=1)
                 self.results[size]['insertion_times'].append(insertion_time)
 
+                # measure search time
                 search_time = timeit.timeit(lambda: self.search_bf(bf, sample_dataset), number=1)  # Measure search time
                 average_search_time = search_time / len(sample_dataset)  # Calculate average search time per item
                 self.results[size]['average_search_times'].append(average_search_time)
 
+                # check for false positives
                 false_positives = 0  # Check for false positives
                 random_words = self.generate_random_words_not_in_dataset(sample_dataset, self.num_queries)
                 for test_element in random_words:
