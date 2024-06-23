@@ -8,17 +8,16 @@ class Bloom_Filter:
         self.word_count = len(dataset)  # Counter of words inserted
         self.P = P
         self._calculate_parameters()
-        self.bit_array = [0] * self.m  # Initialize the bit array with all zeros
+        self.bit_array = [0] * self.m  # Initialize the bit array with zeros
         for element in dataset:
             self.insert_into_bit_array(element)
-
 
     # Function to Calculate Optimal Parameters
     def _calculate_parameters(self):
         """
         Calculate the size of bit array (m) & number of hash functions (k)
-        based on the excepted number of elements in the dataset (word_count) and
-        the desired probability of false positives (P).
+        based on the excepted number of elements in the dataset (word_count)
+        and the desired probability of false positives (P).
 
         Returns:
         tuple: Size of the bit array (m) and number of hash functions (k).
@@ -36,7 +35,6 @@ class Bloom_Filter:
         self.k = int(k_float) + 1 if k_float > int(k_float) else int(k_float)
         return self.m, self.k
     
-
     # Function to Add Elements to the Bloom Filter
     def insert_into_bit_array(self, element):
         """
@@ -48,11 +46,11 @@ class Bloom_Filter:
         bit_array: A list representing the bit array.
         """
         for i in range(self.k):
-            digest = hashlib.sha1((str(element) + str(i)).encode('utf-8')).hexdigest()
+            digest = hashlib.sha1((str(element) +
+                                   str(i)).encode('utf-8')).hexdigest()
             index = int(digest, 16) % self.m
             self.bit_array[index] = 1
-
-  
+ 
     # Function to Search Elements in the Bloom filter
     def search_bit_array(self, element):
         """
@@ -63,7 +61,8 @@ class Bloom_Filter:
         bit_array: A list representing the bit array.
         """   
         for i in range(self.k):
-            digest = hashlib.sha1((str(element) + str(i)).encode('utf-8')).hexdigest()
+            digest = hashlib.sha1((str(element) +
+                                   str(i)).encode('utf-8')).hexdigest()
             index = int(digest, 16) % self.m
             if self.bit_array[index] == 0:
                 return False
