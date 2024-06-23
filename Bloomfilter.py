@@ -5,7 +5,8 @@ import hashlib
 class Bloom_Filter:
 
     def __init__(self, dataset, P=0.01):
-        self.word_count = len(dataset)  # Counter of words inserted
+        self.word_count = len(dataset) # Counter of words inserted
+        self.dataset = dataset
         self.P = P
         self._calculate_parameters()
         self.bit_array = [0] * self.m  # Initialize the bit array with zeros

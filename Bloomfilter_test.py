@@ -87,4 +87,19 @@ with open("words.txt", 'r') as datafile:
 
 wordtxt_bloom = Bloom_Filter(words_dataset)
 
+### 2. Txt file with sequences
+
+sequences_dataset = []
+with open("sequences.txt", 'r') as datafile:
+    sequences_dataset = [line.strip() for line in datafile]
+
+sequences_bloom = Bloom_Filter(sequences_dataset)
+
+### 3. Csv file with a 1000 English words
+
+english_words_dataset = []
+with open("English_words.csv", 'r') as datafile:
+    english_words_dataset = [line.strip() for line in datafile]
+
+english_words_bloom = Bloom_Filter(english_words_dataset)
 
