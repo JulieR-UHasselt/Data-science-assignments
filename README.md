@@ -1,6 +1,13 @@
-This folder is used for the project of the course 'Concepts of Data Science DL'.
-This project is done by Julie Robbrecht and Shadi Hamdan.
-The purpose of the project is to implement a bloom filter.
+# Course Information
+
+This project is a part of the course "Concept of Data Science - Distance learning" and demonstrates the practical application of data structures in the implementation of the bloom filter. This github repository is used by Julie Robbrecht and Shadi Hamdan.
+
+# Bloom Filter Testing
+
+We performed different types of test. First we inserted different types of data in lists. Next, we inserted large datasets in different file types. Both got inserted in the bloom filters without any issues.
+
+Next we performed different search tests. We noted that there were false positives as expected (when increase the appetite for false positives with the P value), but we did not find any false negatives in extensive testing.
+
 
 # Bloom Filter Performance Testing
 
@@ -20,13 +27,11 @@ The `BloomFilter` class implements a Bloom Filter to check if an item might be i
 - `search_bf(self, bf, dataset)`: Checks all items in the dataset against the Bloom Filter.
 - `search_bit_array(self, element)`: Checks if an item might be in the Bloom Filter.
 
-## BloomFilterPerformanceTest Class
+### BloomFilterPerformanceTest Class
 
 The `BloomFilterPerformanceTest` class is designed to test the performance of a Bloom Filter. Below are the main methods:
 
 - `__init__(self, dataset, dataset_sizes, num_runs=10, num_queries=1000)`: Initializes the performance test with the dataset, sizes to test, number of runs, and number of queries.
-
-- `create_bf_from_dataset(self, dataset, P=0.01)`: Creates a Bloom Filter from the dataset.
 
 - `generate_random_words_not_in_dataset(self, dataset, num_words, length=10)`: Generates random words not present in the dataset.
 
@@ -36,21 +41,24 @@ The `BloomFilterPerformanceTest` class is designed to test the performance of a 
 
 - `plot_results(self)`: Plots the test results.
 
-## Performance Testing
+## Results
+
+If a linear search would be performed on a large dataset, we would expect a linear increase in search time. For this type of search, we expect a logarithmic function (log(O)).
 
 The performance testing suite evaluates the effectiveness of the Bloom Filter in maintaining a low false positive rate while being space-efficient.
 
 Overall, the performance tests show that the Bloom Filter scales well with increasing dataset sizes, providing efficient insertion and search operations while maintaining reasonable memory usage and false positive rates.
 
-## Datasets Reference
 
-### Words Data Source
+# Datasets Reference
+
+## Words Data Source
 
 The English words dataset `English_words.txt` contains over 479,000 English words and is sourced from the "dwyl/english-words" repository on GitHub.
 
 - ["English Words Dataset."](https://github.com/dwyl/english-words/blob/master/words.txt) GitHub, dwyl. Accessed June 21, 2024.
 
-### Genome Sequences Data Source
+## Genome Sequences Data Source
 
 The genome sequences dataset `DNA_sequences.txt` includes 2000 records and can be found in the "genome" repository by MuhammadShan7 on GitHub.
 
@@ -65,9 +73,11 @@ The dataset files to run with this code should follow:
 - Each line should contain a single string of words or DNA sequences.
 - Ensure there are no additional columns, white spaces, or special characters in the file.
 
-## Usage
 
-To run the performance test, use the following command:
+# Usage repository
+
+Most of the files can easiest be run from the notebook Bloomfilter_all.
+To run the performance test separately, use the following command:
 
 1. **Navigate to the Correct Directory**
    - In your terminal, use the `cd` command to navigate to the directory containing your `Bloomfilter_performance.py` script.
@@ -87,7 +97,3 @@ To run the performance test, use the following command:
      ```bash
      python3 Bloomfilter_performance.py DNA_sequences.txt
      ```
-
-## Course Information
-
-This project is a part of the course "Concept of Data Science - Distance learning" and demonstrates the practical application of data structures in the implementation of the bloom filter.
