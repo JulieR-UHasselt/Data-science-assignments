@@ -12,7 +12,7 @@ urls = [
     "https://mywebsite.net",
     "http://anotherexample.com",
 ]
-url_bloom = BloomFilter(urls)
+url_bloom = BloomFilter(urls,  P=0.1) #note that we change the P value to performance false negative testing
 print(url_bloom)
 
 ### 2. emails
@@ -73,9 +73,6 @@ four_letter_words = [
 four_letter_bloom = BloomFilter(four_letter_words)
 print(four_letter_bloom)
 
-#### Noted that all datasets are imported correctly
-
-
 ## Importing files with a lot of data from different file types
 
 ### 1. Txt file with words
@@ -84,7 +81,7 @@ words_dataset = []
 with open("words.txt", 'r') as datafile:
     words_dataset = [line.strip() for line in datafile]
 
-wordtxt_bloom = BloomFilter(words_dataset)
+wordtxt_bloom = BloomFilter(words_dataset, P=0.1) #note that we change the P value to performance false negative testing
 print(wordtxt_bloom)
 
 ### 2. Txt file with sequences
@@ -93,8 +90,8 @@ sequences_dataset = []
 with open("sequences.txt", 'r') as datafile:
     sequences_dataset = [line.strip() for line in datafile]
 
-sequences_bloom = BloomFilter(sequences_dataset)
-print(sequences_bloom)
+sequencestxt_bloom = BloomFilter(sequences_dataset)
+print(sequencestxt_bloom)
 
 ### 3. Csv file with a 1000 English words
 
@@ -102,14 +99,13 @@ english_words_dataset = []
 with open("English_words.csv", 'r') as datafile:
     english_words_dataset = [line.strip() for line in datafile]
 
-english_words_bloom = BloomFilter(english_words_dataset)
-print(english_words_bloom)
+english_words_csv_bloom = BloomFilter(english_words_dataset)
+print(english_words_csv_bloom)
 
-### Noted that all the files are read correctly
 
-# 2. Testing the result of the search function of the bloomfilter
+# Testing the result of the search function of the bloomfilter
 
-## True postive
+## 1. True postive
 
 dna_sequences_test = [
     "AGCTTAGCTA",
@@ -121,12 +117,45 @@ for word in dna_sequences_test:
     result = DNA_bloom.search_bit_array(word)
     print(f"Word '{word}' found: {result}")
 
-    
+sequences_test = [
+"CGTATCTTCGTGTGCTCTCCTTTAGAACTGCATCTCTAGAGTCAGAGAGG",
+"AGAGCATTGTATCCGACCGAACTCCTGTAGTGACAAAACCGTCCTCAATG",
+"TCGACCGAACTCCCTGCCTCTCATCGCGGATCACGTCCGCCGAGATAATA"]
 
-## False positive
+for word in sequences_test:
+    result = sequencestxt_bloom.search_bit_array(word)
+    print(f"Word '{word}' found: {result}")
 
+## 2. False positive
 
-## True negative
+wordtxt_bloom_test = [
+    "bark", "test", "four", "unbelivehrdafkd", "fist", "gift", "hint", "jazz", "kite", "lamp",
+    "mint", "nest", "pace", "quip", "rain", "snow", "toad", "urge", "vase", "warp",
+    "arch", "bank", "dove", "flip", "gold", "hail", "jump", "leaf", "muse", "note"
+]
+
+for word in wordtxt_bloom_test:
+    result = wordtxt_bloom.search_bit_array(word)
+    print(f"Word '{word}' found: {result}")
+
+## 3. True negative
+
+url_bloom_test = [
+    "https://www.bbc.com/",
+    "https://www.twitter.com/",
+    "https://www.youtube.com/",
+    "https://www.amazon.com/",
+    "https://www.google.com/",
+    "https://www.khanacademy.org/",
+    "https://www.theverge.com/",
+    "https://www.webmd.com/",
+    "https://www.booking.com/",
+    "https://www.imdb.com/"
+]
+
+for word in url_bloom_test:
+    result = url_bloom.search_bit_array(word)
+    print(f"Word '{word}' found: {result}")
 
 four_letter_words_test = [
     "bark", "test", "four", "unbelivehrdafkd", "fist", "gift", "hint", "jazz", "kite", "lamp",
@@ -141,10 +170,5 @@ for word in four_letter_words_test:
 English_test = ["agony", "bread", "dad"]
 
 for word in English_test:
-    result = english_words_bloom.search_bit_array(word)
+    result = english_words_csv_bloom.search_bit_array(word)
     print(f"Word '{word}' found: {result}")
-
-### Noted that all the words were correctly identified 
-# as not in the four letter words bloom filter or the English test bloom filter.
-
-## As expected, we did not find any false negatives in our testing.
