@@ -94,7 +94,8 @@ class BloomFilterPerformanceTest:
                 self.results[size]['creation_times'].append(creation_time)
                 self.results[size]['memory_usages'].append(memory_usage)
 
-                insertion_time = timeit.timeit(lambda: [bf.add(item) for item in sample_dataset], number=1)
+                insertion_time = timeit.timeit(lambda: [bf.insert_into_bit_array(item)
+                                               for item in sample_dataset], number=1)
                 self.results[size]['insertion_times'].append(insertion_time)
 
                 search_time = timeit.timeit(lambda: self.search_bf(bf, sample_dataset), number=1)  # Measure search time
