@@ -1,5 +1,7 @@
 # Course Information
 
+Test
+
 This project is a part of the course "Concept of Data Science - Distance learning" and demonstrates the practical application of data structures in the implementation of the bloom filter. This github repository is used by Julie Robbrecht and Shadi Hamdan.
 
 We have created different python files for each section:
